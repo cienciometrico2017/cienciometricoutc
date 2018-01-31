@@ -1,0 +1,86 @@
+{% extends 'base1/inicio.html' %}
+{% load staticfiles %}
+{% load bootstrap %}
+{% load material_form %}
+{% load widget_tweaks %}
+{% block extrastatic %}
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="static/css/animate.min.css">
+{% endblock %}
+      {% block home %}
+    <a href="{% url 'inicio:logeo' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
+    {% endblock %}
+ {% block itemRevista %}
+            <a href="{% url 'Revista:lista_Revista' %}" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/revista.png' %}">Revista</a>
+            {% endblock %}
+{% block content %}
+<div class="wow fadeInUp animated" style="background: #009688; height:20%;  padding: 1cm 3cm 1cm 3cm;" >
+     <h4 align="center" style="color:white"><span class="glyphicon glyphicon-th-list"></span> LISTADO DE <span style="color:#FC9C30">REVISTA</span> </h4>
+<div style="float:right;">
+          <h6>  <strong style="color:white;font-size:100%">Bienvenido/</strong>
+            <strong style="color:white;font-size:100%">{{user.username}}/</strong>
+            <strong style="color:white;font-size:100%"><a href="{% url 'logout'%}" style="color:white;"><span class="glyphicon glyphicon-log-out"></span>Cerrar Sesión</a></strong>
+        </a></h6>
+            </div>
+
+</div>
+    <br>
+<div class="container" style="width:90%;">
+    <div class="col-md-8 col-md-offset-2">
+<a href="{% url 'Revista:create_Revista' %}" class="btn btn-primary  pull-right "><i class="glyphicon glyphicon-plus"></i> Nuevas revista</a>
+    </div>
+     </div>
+<br>
+<div align="center" class="row" style="width:90%;">
+<div class="table-responsive">
+<table class="table table-bordered" style="text-align:center;">
+	<thead >
+		<h3 style="color:black;font-size:100%"><tr>
+			<td>#</td>
+			<td>Nombre</td>
+			<td>Investigador</td>
+			<td>ISSN</td>
+            <td>Base Indexada</td>
+            <td>Cuartil Pertenece</td>
+            <td>Factor Impacto</td>
+            <td>URL</td>
+            <td>Acciones</td>
+		</tr></h3>
+
+	</thead>
+	<tbody>
+        {% if object_list %}
+        {% for revista in object_list %}
+       <tr>
+            <td>{{revista.id}}</td>
+            <td>{{revista.Nombre}}</td>
+            <td>{{revista.investigador_id}}</td>
+             <td>{{revista.ISSN}}</td>
+            <td>{{revista.Base_Indexada}}</td>
+            <td>{{revista.Cuartil_Pertenece}}</td>
+            <td>{{revista.Factor_Inpacto}}</td>
+            <td>{{revista.Url}}</td>
+
+
+
+
+            <td>
+
+                <a class="btn btn-warning" href="{% url 'Revista:update_Revista' revista.id %}" ><span class="glyphicon glyphicon-pencil"></span> Editar</a>
+                <a class="btn btn-danger" href="{% url 'Revista:delete_Revista' revista.id %}"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+
+            </td>
+        </tr>
+        {% endfor %}
+
+        {% else %}
+        <h4>No hay registros de revistas</h4>
+        {% endif %}
+
+	</tbody>
+</table>
+</div>
+</div>
+{% endblock%}
