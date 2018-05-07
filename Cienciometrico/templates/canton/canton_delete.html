@@ -1,12 +1,21 @@
 {% extends 'base1/inicio.html' %}
 {% load staticfiles %}
- {% block home %}
-    <a href="{% url 'inicio:logeo' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
-    {% endblock %}
- {% block canton %}
-            <a href="{% url 'canton:canton_listar' %}"  id="uno" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/city.png' %}"> Cantón</a>
-			{% endblock %}
-
+{% block subtitle %} 
+    ELIMINAR <span style="color:#FC9C30">CANTÓN</span> 
+{% endblock%}
+{% block home %}
+<li class="nav-item">
+    <li><a href="{% url 'inicio:logeo' %}" class="nav-link"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
+</li>
+{% endblock %}
+{% block canton %}
+<li class="nav-item">
+    <a class="nav-link active" href="{% url 'canton:canton_listar' %}">
+        <i class="batch-icon batch-icon-star"></i>
+        Cantón
+    </a>
+</li>
+{% endblock %}
 {% block content %}
 <br>
 <form method="post">

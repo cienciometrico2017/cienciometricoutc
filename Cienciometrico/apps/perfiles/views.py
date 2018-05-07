@@ -21,17 +21,16 @@ class RegistroUsuario(CreateView):
 
         def get_context_data(self, **kwargs):
             persona = Perfil.objects.all()  # Esto si retorna un QuerySet
-            exi = persona.exists()
-
+            exi = persona.exists() #metodo comprobar
             context= super(RegistroUsuario,self).get_context_data(**kwargs)
-            usuario = self.request.user.id
-            perfil = Perfil.objects.get(user_id=usuario)
-            roles = perfil.roles.all()
-            privi = []
-            privilegios = []
-            privilegio = []
+            usuario = self.request.user.id  #usuario loggeado
+            perfil = Perfil.objects.get(user_id=usuario) #buscar el perfil del usuario
+            roles = perfil.roles.all() # todos los roles
+            privi = [] #array vacio
+            privilegios = [] #array vacio
+            privilegio = [] #array vacio
             for r in roles:
-                 privi.append(r.id)
+                 privi.append(r.id) #almacena roles por id
             for p in privi:
                  roles5 = Rol.objects.get(pk=p)
                  priv = roles5.privilegios.all()

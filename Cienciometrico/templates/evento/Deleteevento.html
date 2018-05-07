@@ -1,11 +1,24 @@
 {% extends 'base1/inicio.html'%}
 {% load staticfiles %}
- {% block home %}
-    <a href="{% url 'inicio:logeo' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
-    {% endblock %}
-{% block eveto %}
-            <a href="{% url 'evento:lista_Evento' %}" id="uno" class="w3-bar-item w3-button"> <img width="15%" src="{% static 'images/evento.png' %}">Evento</a>
-			{% endblock %}
+{% block subtitle %}
+    Eliminar <span style="color:#FC9C30">evento</span>
+
+{% endblock%}
+{% block home %}
+<li class="nav-item">
+    <li><a href="{% url 'inicio:logeo' %}" class="nav-link"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
+
+</li>
+{% endblock %}
+
+{% block evento %}
+<li class="nav-item">
+	<a class="nav-link active" href="{% url 'evento:lista_Evento' %}">
+		<i class="batch-icon batch-icon-paper-roll-ripped"></i>
+		Evento
+	</a>
+</li>
+{% endblock %}
 {% block content %}
 <form method="post">
     {% csrf_token %}

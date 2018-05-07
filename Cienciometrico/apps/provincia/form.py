@@ -14,7 +14,7 @@ class ProvinciaForm(forms.ModelForm):
             'pais': 'País',
         }
         widgets={
-            'Nombre':forms.TextInput(attrs={'class':'form-control'}),
+            'Nombre': forms.TextInput(attrs={'class':'form-control'}),
             'zona': forms.Select(attrs={'class': 'form-control','id':'zona'}),
-            'pais': forms.Select(attrs={'class': 'form-control'}),
+            'pais': forms.Select(attrs={'class': 'form-control','id':'pais'}),
         }

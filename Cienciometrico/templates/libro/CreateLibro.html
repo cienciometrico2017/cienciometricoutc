@@ -1,53 +1,134 @@
 {% extends 'base1/inicio.html'%}
 {% load staticfiles %}
-{% load bootstrap %}
-{% load material_form %}
-{% load widget_tweaks %}
-{% block extrastatic %}
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <link rel="stylesheet" href="static/css/animate.min.css">
-{% endblock %}
+{% block subtitle %} 
+    NUEVO <span style="color:#FC9C30">Libro</span> 
+
+{% endblock%}
 {% block home %}
-    <a href="{% url 'inicio:logeo' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
-    {% endblock %}
-  {% block itemLibro %}
-    <a href="{% url 'Libro:libro_lis' %}" id="uno" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/libro.png' %}">Libros</a>
-    {% endblock %}
+<li class="nav-item">
+    <li><a href="{% url 'inicio:logeo' %}" class="nav-link"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
+
+</li>
+{% endblock %}
+
+{% block itemLibro %}
+<li class="nav-item ">
+  <a class="nav-link active" href="{% url 'Libro:libro_lis' %}">
+    <i class="batch-icon batch-icon-book"></i>
+    Libros
+  </a>
+</li>
+{% endblock %}
 {% block content %}
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="wow fadeInUp animated" style="background: #009688; height:20%;  padding: 1cm 3cm 1cm 3cm;" >
-     <h4 align="center" style="color:white"><span class="glyphicon glyphicon-plus"></span> NUEVO <span style="color:#FC9C30">LIBRO</span> </h4>
-     <h6><div style="float:right;">
-            <strong style="color:white;font-size:100%">Bienvenido/</strong>
-            <strong style="color:white;font-size:100%">{{user.username}}/</strong>
-            <strong style="color:white;font-size:100%"><a href="{% url 'logout'%}" style="color:white;"><span class="glyphicon glyphicon-log-out"></span>Cerrar Sesión</a></strong>
-        </a>
-            </div></h6>
-    </div>
-    <br>
-	<div class="container">
-		<div class="col-md-10 col-md-offset-2">
-	<a href="{% url 'Libro:libro_lis' %}" class="btn btn-primary  pull-right"><i class="glyphicon glyphicon-eye-open"></i> Ver Todos</a>
-</div>
-
-		  </div>
-
-    <div class="row">
-		<div class="col-md-8 col-md-offset-2">
-              {% form form=form %}{% endform %}
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 pb-5">
+                        <form method="post">
+                              {% csrf_token %}
+                            <!--
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group input-field">
+                                    <label>Titulo</label>
+                                    <input class="form-control" type="text" name="Titulo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group input-field">
+                                    <label>Resumen</label>
+                                    <input class="form-control" type="text" name="Resumen">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group input-field">
+                                    <label>Palabras clave</label>
+                                    <input class="form-control" type="text" name="PalabrasClave">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group input-field">
+                                    <label>Archivo</label>
+                                    <input class="form-control" type="file" name="Documento">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group input-field">
+                                    <label>ISBN</label>
+                                    <input class="form-control" type="text" name="ISBN">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group input-field">
+                                    <label>Ubicacion fisica</label>
+                                    <input class="form-control" type="text" name="UbicacionFisica">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group input-field">
+                                    <label>Año</label>
+                                    <input class="form-control" type="text" name="Anio">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group input-field">
+                                    <label>Editorial</label>
+                                    <input class="form-control" type="text" name="Editorial">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group input-field">
+                                    <label>Url</label>
+                                    <input class="form-control" type="text" name="Url">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group input-field">
+                                    <label>user</label>
+                                    <input class="form-control" type="text" name="user" value="{{ user.pk }}">
+                                    </div>
+                                </div>
+                            </div>
+                            -->
+                            <div class="row">
+                                    <div class="col-md-12">
+                                    {{ form.as_p }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                 <div class="col-md-12">
+                                      <div class="form-group">
+                                          <button class="btn btn-primary "type="submit">Guardar</button>
+                                      </div>
+                                    </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-      <div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="form-group">
-				<button class="btn btn-primary "type="submit">Guardar</button>
-			</div>
-		</div>
-	</div>
-  </form>
-
-
+    <script>
+        document.getElementById("user").value = {{user.id}};
+    </script>
 {% endblock %}
+

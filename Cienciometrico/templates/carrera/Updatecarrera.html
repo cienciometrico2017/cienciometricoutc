@@ -1,21 +1,24 @@
 {% extends 'base1/inicio.html'%}
 {% load staticfiles %}
+{% block subtitle %} 
+    
+    ACTUALIZAR INFORMACIÓN DE <span style="color:#FC9C30">CARRERAS</span> 
+{% endblock%}
 {% block home %}
-    <a href="{% url 'inicio:logeo' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
-    {% endblock %}
- {% block carrera %}
-            <a href="{% url 'carrera:lista_Carrera' %}" id="uno" class="w3-bar-item w3-button"> <img width="15%" src="{% static 'images/carrera.png' %}"> Carrera</a>
-			{% endblock %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	{% block extrastatic %}
+<li class="nav-item">
+    <li><a href="{% url 'inicio:logeo' %}" class="nav-link"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
 
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <link rel="stylesheet" href="static/css/animate.min.css">
-
+</li>
+{% endblock %}
+{% block carrera %}
+<li class="nav-item">
+    <a class="nav-link active" href="{% url 'carrera:lista_Carrera' %}">
+        <i class="batch-icon batch-icon-star"></i>
+        Carrera
+    </a>
+</li>
+{% endblock %}
+{% block extrastatic %}
 <script>
         function paises() {
             document.getElementById("zona").innerHTML = "";
@@ -95,113 +98,105 @@
         }
     </script>
 {% endblock %}
-</head>
-<body>
 {% block content %}
- <form method="post">
-        {% csrf_token %}
-	   <div class="wow fadeInUp animated" style="background: #009688; height:20%;  padding: 1cm 3cm 1cm 3cm;" >
-     <h4 align="center" style="color:white"><span class="glyphicon glyphicon-plus"></span> ACTUALIZAR <span style="color:#FC9C30">CARRERA</span> </h4>
-        <h6> <div style="float:right;">
-            <strong style="color:white;font-size:100%">Bienvenido/</strong>
-            <strong style="color:white;font-size:100%">{{user.username}}/</strong>
-            <strong style="color:white;font-size:100%"><a href="{% url 'logout'%}" style="color:white;"><span class="glyphicon glyphicon-log-out"></span>Cerrar Sesión</a></strong>
-        </a>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 pb-5">
+                         <form method="post">
+                                {% csrf_token %}
+                        	   
+                        	  <div class="row">
+                        		<div class="col-md-12">
+                        			<div class="form-group">
+                        				<label>Pais</label>
+                                        <select class="form-control" id="pais" onchange="paises()">
+                                            <option>--Seleccione--</option>
+                                            {% for p in  Pais%}
+                                            <option value="{{ p.pk }}">{{p.Nombre}}</option>
+
+                                            {% endfor %}
+                                        </select>
+                        			</div>
+                        		</div>
+                        	</div>
+                        	 <div class="row">
+                        		<div class="col-md-12">
+                        			<div class="form-group">
+                        				<label>Zona</label>
+                                        <select class="form-control" id="zona" onchange="zonas()">
+                                            <option>--Seleccione--</option>
+
+                                        </select>
+                        			</div>
+                        		</div>
+                        	</div>
+                        	 <div class="row">
+                        		<div class="col-md-12">
+                        			<div class="form-group">
+                        				<label>Universidad</label>
+                                        <select class="form-control" id="universidad" onchange="unicam()">
+                                            <option>--Seleccione--</option>
+
+                                        </select>
+                        			</div>
+                        		</div>
+                        	</div>
+                        	 <div class="row">
+                        		<div class="col-md-12">
+                        			<div class="form-group">
+                        				<label >Campus</label>
+                        				<select class="form-control" id="campus" onchange="facultadcampus()">
+                                            <option>--Seleccione--</option>
+
+                                        </select>
+                        			</div>
+                        		</div>
+                        	</div>
+                        	<div class="row">
+                        		<div class="col-md-12">
+                        			<div class="form-group">
+                        				<label >Facultad</label>
+                        				{{form.facultad}}
+                        			</div>
+                        		</div>
+                        	</div>
+                           <div class="row">
+                        		<div class="col-md-12">
+                        			<div class="form-group">
+                        				<label>Nombre de Carrera </label>
+                        				{{form.Nombre}}
+                        			</div>
+                        		</div>
+                        	</div>
+                        	<div class="row">
+                        		<div class="col-md-12">
+                        			<div class="form-group">
+                        				<label >Director de la Carrera</label>
+                        				{{form.Director}}
+                        			</div>
+                        		</div>
+                        	</div>
+
+
+
+                                <div class="row">
+                        		<div class="col-md-12">
+                        			<div class="form-group">
+                                        <button type="submit"   class="btn btn-primary" >Guardar</button>
+                                        <a class="btn btn-default" href="{% url 'carrera:lista_Carrera' %}">Cancelar</a>
+                                    </div>
+                        		</div>
+                                </div>
+                        	</div>
+
+
+                        </form>
+                    </div>
+                </div>
             </div>
-           </h6>
-	   </div>
-    <br>
-      <div class="row">
-		<div class="col-md-8 col-md-offset-2">
-	<a href="{% url 'carrera:lista_Carrera' %}" class="btn btn-primary  pull-right"><i class="glyphicon glyphicon-eye-open"></i> Ver Todos</a>
-		</div>
-		</div>
-	  <div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="form-group">
-				<label>Pais</label>
-                <select class="form-control" id="pais" onchange="paises()">
-                    <option>--Seleccione--</option>
-                    {% for p in  Pais%}
-                    <option value="{{ p.pk }}">{{p.Nombre}}</option>
-
-                    {% endfor %}
-                </select>
-			</div>
-		</div>
-	</div>
-	 <div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="form-group">
-				<label>Zona</label>
-                <select class="form-control" id="zona" onchange="zonas()">
-                    <option>--Seleccione--</option>
-
-                </select>
-			</div>
-		</div>
-	</div>
-	 <div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="form-group">
-				<label>Universidad</label>
-                <select class="form-control" id="universidad" onchange="unicam()">
-                    <option>--Seleccione--</option>
-
-                </select>
-			</div>
-		</div>
-	</div>
-	 <div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="form-group">
-				<label >Campus</label>
-				<select class="form-control" id="campus" onchange="facultadcampus()">
-                    <option>--Seleccione--</option>
-
-                </select>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="form-group">
-				<label >Facultad</label>
-				{{form.facultad}}
-			</div>
-		</div>
-	</div>
-   <div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="form-group">
-				<label>Nombre de Carrera </label>
-				{{form.Nombre}}
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="form-group">
-				<label >Director de la Carrera</label>
-				{{form.Director}}
-			</div>
-		</div>
-	</div>
-
-
-
-        <div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="form-group">
-                <button type="submit"   class="btn btn-primary" >Guardar</button>
-            </div>
-		</div>
         </div>
-	</div>
-
-
-</form>
+    </div>
 
 {% endblock %}
-</body>
-</html>

@@ -1,84 +1,97 @@
 {% extends 'base1/inicio.html'%}
 {% load staticfiles %}
-{% block extrastatic %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="static/css/animate.min.css">
-{% endblock %}
-{% block home %}
-<a href="{% url 'inicio:logeo' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
-{% endblock %}
-{% block itemArti %}
-<a href="{% url 'articulosCientificos:ListaArticulo' %}" id="uno"  class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/articuloCient.png' %}">Artículos Científicos</a>
-{% endblock %}
-{% block content %}
-<div class="wow fadeInUp animated" style="background: #009688; height:20%;  padding: 1cm 3cm 1cm 3cm;" >
-   <h4 align="center" style="color:white"><span class="glyphicon glyphicon-th-list"></span> LISTADO DE <span style="color:#FC9C30">ARTÍCULOS CIENTÍFICOS</span> </h4>
-   <h6>
-      <div style="float:right;">
-         <strong style="color:white;font-size:100%">Bienvenido/</strong>
-         <strong style="color:white;font-size:100%">{{user.username}}/</strong>
-         <strong style="color:white;font-size:100%"><a href="{% url 'logout'%}" style="color:white;"><span class="glyphicon glyphicon-log-out"></span>Cerrar Sesión</a></strong>
-         </a>
-      </div>
-   </h6>
-</div>
-<br>
-<div class="container">
-   <a href="{% url 'articulosCientificos:articulos' %}" class="btn btn-primary  pull-right "><i class="glyphicon glyphicon-plus"></i> Nuevo Artículo Científico</a>
-</div>
-<br>
-<div class="table-responsive">
-<table class="table table-bordered" style="text-align:center; width:100%; ">
-      <thead>
-         <tr>
-            <td>#</td>
-            <td>Título del Artículo </td>
-            <td>Resumen del Artículo</td>
-            <td>Palabras Claves</td>
-            <td>Documento</td>
-            <td>Nombre de la Revista</td>
-            <td>Volumen</td>
-            <td>Numero</td>
-            <td>ISSN</td>
-            <td>Base de Datos Indexada</td>
-            <td>Url</td>
-            <td>Fecha de Publicación</td>
-            <td>Acciones</td>
-         </tr>
-      </thead>
-      <tbody>
-         {% if object_list %}
-         {% for articulos_cientificos in object_list %}
-         <tr>
-            <td>{{articulos_cientificos.id}}</td>
-            <td>{{articulos_cientificos.Nombre}}</td>
-            <td>{{articulos_cientificos.Resumen}}</td>
-            <td>{{articulos_cientificos.PalabrasClaves}}</td>
-            <td>
-
-                    <a href="{{ articulos_cientificos.Documento.url }}">{{articulos_cientificos.Documento.name}}</a>
-                    <small>(Uploaded at: {{ articulos_cientificos.uploaded_at }})</small>
-
-            </td>
-            <td>{{articulos_cientificos.NombreRevista }}</td>
-            <td>{{articulos_cientificos.Volumen }}</td>
-            <td>{{articulos_cientificos.Numero}}</td>
-            <td>{{articulos_cientificos.ISSN }}</td>
-            <td>{{articulos_cientificos.Base_Datos }}</td>
-            <td>{{articulos_cientificos.Url}}</td>
-            <td>{{articulos_cientificos.Fecha_Publicacion }}</td>
-            <td>
-               <a class="btn btn-warning" href="{% url 'articulosCientificos:update_articulo'  articulos_cientificos.id %}" ><span class="glyphicon glyphicon-pencil"></span>Editar</a>
-               <a class="btn btn-danger" href="{% url 'articulosCientificos:delete_articulo'  articulos_cientificos.id %}"><span class="glyphicon glyphicon-trash"></span>Eliminar</a>
-            </td>
-         </tr>
-         {% endfor %}
-         {% else %}
-         <h4>No hay registros de artículos científicos</h4>
-         {% endif %}
-      </tbody>
-   </table>
-</div>
+{% block subtitle %}
+    LISTADO DE <span style="color:#FC9C30">Articulos cientificos</span>
+     <a href="{% url 'articulosCientificos:articulos' %}" class="btn btn-primary  pull-right "><i class="glyphicon glyphicon-plus"></i> Nuevo Artículo Científico</a>
 {% endblock%}
+{% block home %}
+<li class="nav-item">
+    <li><a href="{% url 'inicio:logeo' %}" class="nav-link"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
+
+</li>
+{% endblock %}
+
+{% block itemArti %}
+<li class="nav-item">
+   <a class="nav-link active" href="{% url 'articulosCientificos:ListaArticulo' %}">
+       <i class="batch-icon batch-icon-compose"></i>
+       Artículos Científicos
+   </a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+   <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 pb-5">
+                        <div class="table-responsive">
+                            {% if object_list %}
+                            <table id="datatable-1" class="table table-datatable table-striped table-hover">
+                                 <thead>
+                                    <tr>
+                                       <td>#</td>
+                                       <td>Título del Artículo </td>
+                                       <td>Resumen del Artículo</td>
+                                       <td>Palabras Claves</td>
+                                       <td>Documento</td>
+                                       <td>Nombre de la Revista</td>
+                                       <td>Volumen</td>
+                                       <td>Numero</td>
+                                       <td>ISSN</td>
+                                       <td>Base de Datos Indexada</td>
+                                       <td>Url</td>
+                                       <td>Fecha de Publicación</td>
+                                       <td>Acciones</td>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+
+                                    {% for articulos_cientificos in object_list %}
+                                    <tr>
+                                       <td>{{articulos_cientificos.id}}</td>
+                                       <td>{{articulos_cientificos.Nombre}}</td>
+                                       <td>{{articulos_cientificos.Resumen}}</td>
+                                       <td>{{articulos_cientificos.PalabrasClaves}}</td>
+                                       <td>
+
+                                               <a href="{{ articulos_cientificos.Documento.url }}">{{articulos_cientificos.Documento.name}}</a>
+                                               <small>(Uploaded at: {{ articulos_cientificos.uploaded_at }})</small>
+
+                                       </td>
+                                       <td>{{articulos_cientificos.NombreRevista }}</td>
+                                       <td>{{articulos_cientificos.Volumen }}</td>
+                                       <td>{{articulos_cientificos.Numero}}</td>
+                                       <td>{{articulos_cientificos.ISSN }}</td>
+                                       <td>{{articulos_cientificos.Base_Datos }}</td>
+                                       <td>{{articulos_cientificos.Url}}</td>
+                                       <td>{{articulos_cientificos.Fecha_Publicacion }}</td>
+                                       <td>
+                                          <a class="btn btn-warning" href="{% url 'articulosCientificos:update_articulo'  articulos_cientificos.id %}" ><span class="glyphicon glyphicon-pencil"></span>Editar</a>
+                                          <a class="btn btn-danger" href="{% url 'articulosCientificos:delete_articulo'  articulos_cientificos.id %}"><span class="glyphicon glyphicon-trash"></span>Eliminar</a>
+                                       </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                 </tbody>
+                            </table>
+                            {% else %}
+                                <h4>No hay registros de artículos científicos</h4>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock%}
+{% block scripts %}
+    <!-- Datatables -->
+    <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/dataTables.responsive.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/responsive.bootstrap4.min.js' %}"></script> -->
+{% endblock %}

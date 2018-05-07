@@ -1,10 +1,23 @@
 {% extends 'base1/inicio.html'%}
 {% load staticfiles %}
+{% block subtitle %}
+    LISTADO DE <span style="color:#FC9C30">Articulos cientificos</span>
+     <a href="{% url 'articulosCientificos:articulos' %}" class="btn btn-primary  pull-right "><i class="glyphicon glyphicon-plus"></i> Nuevo Artículo Científico</a>
+{% endblock%}
 {% block home %}
-<a href="{% url 'inicio:logeo' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
+<li class="nav-item">
+    <li><a href="{% url 'inicio:logeo' %}" class="nav-link"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
+
+</li>
 {% endblock %}
+
 {% block itemArti %}
-<a href="{% url 'articulosCientificos:ListaArticulo' %}" id="uno"  class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/articuloCient.png' %}">Artículos Científicos</a>
+<li class="nav-item">
+   <a class="nav-link active" href="{% url 'articulosCientificos:ListaArticulo' %}">
+       <i class="batch-icon batch-icon-compose"></i>
+       Artículos Científicos
+   </a>
+</li>
 {% endblock %}
 {% block content %}
 <form method="post">

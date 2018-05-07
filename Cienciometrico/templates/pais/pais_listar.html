@@ -1,76 +1,75 @@
 {% extends 'base1/inicio.html' %}
 {% load staticfiles %}
 {% block extrastatic %}
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <link rel="stylesheet" href="static/css/animate.min.css">
 {% endblock %}
+    {% block subtitle %} 
+        LISTADO DE <span style="color:#FC9C30">PAÍSES</span> 
+        <!-- Button trigger modal -->
+        
+        <a href="{% url 'pais:pais_crear' %}" class="btn btn-success  pull-right "><i class="glyphicon glyphicon-plus"></i> Nuevo País</a>
+    {% endblock%}
+
+    
     {% block home %}
-    <a href="{% url 'inicio:logeo' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
+    <li class="nav-item">
+        <li><a href="{% url 'inicio:logeo' %}" class="nav-link"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
+    </li>
     {% endblock %}
     {% block pais %}
-	<a href="{% url 'pais:pais_listar' %}" id="uno" class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/globe.png' %}"> País</a>
-	{% endblock %}
-{% block content %}
-
-<div class="wow fadeInUp animated "  style=" background: #009688; height:20%;  padding: 1cm 3cm 1cm 3cm;" >
-     <h4 align="center" style="color:white"><span class="glyphicon glyphicon-plus"></span> LISTADO DE <span style="color:#FC9C30">PAÍSES</span> </h4>
- <h6><div style="float:right;">
-            <strong style="color:white;font-size:100%">Bienvenido/</strong>
-            <strong style="color:white;font-size:100%">{{user.username}}/</strong>
-            <strong style="color:white;font-size:100%"><a href="{% url 'logout'%}" style="color:white;"><span class="glyphicon glyphicon-log-out"></span>Cerrar Sesión</a></strong>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'pais:pais_listar' %}">
+            <i class="batch-icon batch-icon-star"></i>
+            País
         </a>
-            </div></h6>
-</div>
-    <br>
-<div class="container" style="width:90%;">
-<a href="{% url 'pais:pais_crear' %}" class="btn btn-primary  pull-right "><i class="glyphicon glyphicon-plus"></i> Nuevo País</a>
-    </div>
-<br>
-<div class="table-responsive">
-<table class="table table-bordered" style="text-align:center; width:100%;">
-    <thead>
-		<tr>
-			<td>#</td>
-            <td>Iso</td>
-			<td>Nombre</td>
-			<td>Acciones</td>
-		</tr>
-
-	</thead>
-	<tbody>
-        {% if object_list %}
-        {% for pais in object_list %}
-        <tr>
-            <td>{{pais.id}}</td>
-            <td>{{pais.Iso}}</td>
-            <td>{{pais.Nombre}}</td>
-            <td>
-                <a class="btn btn-warning" href="{% url 'pais:pais_editar' pais.id %}"><span class="glyphicon glyphicon-pencil"></span> Editar</a>
-                <a class="btn btn-danger" href="{% url 'pais:pais_eliminar' pais.id %}"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
-            </td>
-        </tr>
-        {% endfor %}
-
-        {% else %}
-        <h1 align="center">No hay registros de Países</h1>
-        {% endif %}
-
-	</tbody>
-</table>
-    </div>
-<ul class="pager">
-    <li>
-        {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-        {% endif %}
     </li>
-    <li>
-        {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Next</a>
-        {% endif %}
-    </li>
-</ul>
+    {% endblock %}
+    {% block content %}
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 pb-5">
+                            <div class="table-responsive">
+                                <table id="datatable-1" class="table table-datatable table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:left; width:25%;">#</th>
+                                            <th style="text-align:left; width:25%;">Iso</th>
+                                            <th style="text-align:left; width:25%;">Nombre</th>
+                                            <th style="text-align:center; width:25%;">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if object_list %}
+                                    {% for pais in object_list %}
+                                        <tr>
+                                            <td>{{pais.id}}</td>
+                                            <td>{{pais.Iso}}</td>
+                                            <td>{{pais.Nombre}}</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="{% url 'pais:pais_editar' pais.id %}"><span class="glyphicon glyphicon-pencil"></span> Editar</a>
+                                                <a class="btn btn-primary btn-sm" href="{% url 'pais:pais_eliminar' pais.id %}"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                    <h1 align="center">No hay registros de Países</h1>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 {% endblock%}
+
+{% block scripts %}
+    <!-- Datatables -->
+    <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/dataTables.responsive.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/responsive.bootstrap4.min.js' %}"></script> -->
+{% endblock %}

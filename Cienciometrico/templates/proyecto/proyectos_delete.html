@@ -1,11 +1,22 @@
 {% extends 'base1/inicio.html'%}
 {% load staticfiles %}
-    {% block home %}
-    <a href="{% url 'inicio:logeo' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
-    {% endblock %}
-     {% block itemProyecto %}
-    <a href="{% url 'proyecto:proyectos_lis' %}" id="uno" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/project.png' %}">Proyectos</a>
-    {% endblock %}
+{% block subtitle %}
+    eliminar <span style="color:#FC9C30">Proyecto</span>
+    <!-- Button trigger modal -->
+{% endblock%}
+{% block home %}
+<li class="nav-item">
+    <li><a href="{% url 'inicio:logeo' %}" class="nav-link"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
+</li>
+{% endblock %}
+{% block itemProyecto %}
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'proyecto:proyectos_lis' %}">
+            <i class="batch-icon batch-icon-folder-alt-duplicate"></i>
+            Proyectos
+        </a>
+    </li>
+{% endblock %}
 {% block content %}
 <form method="post">
     {% csrf_token %}
