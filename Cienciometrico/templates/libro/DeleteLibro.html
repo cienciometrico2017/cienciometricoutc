@@ -1,12 +1,23 @@
 {% extends 'base1/inicio.html'%}
 {% load staticfiles %}
-{% block home %}
-    <a href="{% url 'inicio:logeo' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
-    {% endblock %}
-  {% block itemLibro %}
-    <a href="{% url 'Libro:libro_lis' %}" id="uno" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/libro.png' %}">Libros</a>
-    {% endblock %}
+{% block subtitle  %}
+    Eliminar <span style="color:#FC9C30">libros</span>
+    <a href="{% url 'Libro:libro_crear' %}" class="btn btn-success  pull-right "><i class="glyphicon glyphicon-plus"></i> Nuevo libro</a>
+{% endblock%}
 
+{% block home %}
+<li class="nav-item">
+    <li><a href="{% url 'inicio:logeo' %}" class="nav-link"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
+</li>
+{% endblock %}
+{% block itemLibro %}
+<li class="nav-item ">
+    <a class="nav-link active" href="{% url 'Libro:libro_lis' %}">
+        <i class="batch-icon batch-icon-book"></i>
+        Libros
+    </a>
+</li>
+{% endblock %}
 {% block content %}
 <form method="post">
     {% csrf_token %}

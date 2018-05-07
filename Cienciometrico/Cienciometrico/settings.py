@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-from django.core.urlresolvers import reverse_lazy
+
 from django.contrib.messages import constants as messages
+import os
+
 from django.core.urlresolvers import reverse_lazy
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -33,15 +36,24 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'material',
-    'material.admin',
-    'material.frontend',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
+    'apps.Ambito_Investigativo',
+    'apps.Bitacora',
+    'apps.Grado_Competencia',
+    'apps.Intereses_Formativos',
+    'apps.Linea_Investigacion',
+    'apps.Palabra_clave',
+    'apps.Ponencia',
+    'apps.Privilegios',
+    'apps.Sub_Lin_Investigacion',
+    'apps.Unidad_Investigacion',
+    'apps.Unidades_Investigacion',
     'apps.pais',
     'apps.zona',
     'apps.provincia',
@@ -66,9 +78,9 @@ INSTALLED_APPS = [
     'apps.Revista',
     'apps.Publicaciones',
     'apps.roles',
-    'widget_tweaks',
-    'bootstrapform',
-
+    'apps.capacitacion',
+    'apps.baseDatos',
+    'apps.palabraClave',
 ]
 
 MIDDLEWARE = [
@@ -109,9 +121,9 @@ WSGI_APPLICATION = 'Cienciometrico.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cienciometricov',
+        'NAME': 'cienciometrico',
         'USER': 'postgres',
-        'PASSWORD': '1724542103',
+        'PASSWORD': 'drex',
         'HOST': 'localhost',
         'PORT': 5432,
     }
@@ -155,8 +167,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
+STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
 
-STATICFILES_DIRS=(os.path.join(BASE_DIR,'static'),)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
@@ -165,8 +180,6 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL= reverse_lazy('inicio:logeo')
 LOGOUT_REDIRECT_URL= reverse_lazy('iniciop:principal')

@@ -1,73 +1,80 @@
 {% extends 'base1/inicio.html'%}
 {% load staticfiles %}
-{% block extrastatic %}
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <link rel="stylesheet" href="static/css/animate.min.css">
-{% endblock %}
+{% block subtitle %} 
+    LISTADO DE <span style="color:#FC9C30">CARRERAS</span> 
+     <a href="{% url 'carrera:create_Carrera' %}" class="btn btn-primary  pull-right "><i class="glyphicon glyphicon-plus"></i> Nueva Carrera</a>
+{% endblock%}
 {% block home %}
-    <a href="{% url 'inicio:logeo' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
-    {% endblock %}
- {% block carrera %}
-            <a href="{% url 'carrera:lista_Carrera' %}" id="uno" class="w3-bar-item w3-button"> <img width="15%" src="{% static 'images/carrera.png' %}"> Carrera</a>
-			{% endblock %}
+<li class="nav-item">
+    <li><a href="{% url 'inicio:logeo' %}" class="nav-link"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
+
+</li>
+{% endblock %}
+{% block carrera %}
+<li class="nav-item">
+    <a class="nav-link active" href="{% url 'carrera:lista_Carrera' %}">
+        <i class="batch-icon batch-icon-star"></i>
+        Carrera
+    </a>
+</li>
+{% endblock %}
 
 {% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 pb-5">
+                        <div class="table-responsive">
+                            {% if object_list %}
+                            <table id="datatable-1" class="table table-datatable table-striped table-hover">    
+                            	<thead >
+                            		<tr>
+                            			<td>#</td>
+                            			<td>Nombre Carrera</td>
+                            			<td>Director de Carrera</td>
+                            			<td>Facultad</td>
+                                        <td>Acciones</td>
+                            		</tr>
 
-<div class="wow fadeInUp animated" style="background: #009688; height:20%;  padding: 1cm 3cm 1cm 3cm;" >
-     <h4 align="center" style="color:white"><span class="glyphicon glyphicon-th-list"></span> LISTADO DE <span style="color:#FC9C30">CARRERA</span> </h4>
- <h6> <div style="float:right;">
-            <strong style="color:white;font-size:100%">Bienvenido/</strong>
-            <strong style="color:white;font-size:100%">{{user.username}}/</strong>
-            <strong style="color:white;font-size:100%"><a href="{% url 'logout'%}" style="color:white;"><span class="glyphicon glyphicon-log-out"></span>Cerrar Sesión</a></strong>
-        </a>
+                            	</thead>
+                            	<tbody>
+                                    
+                                    {% for carrera in object_list %}
+                                    <tr>
+                                        <td>{{carrera.id}}</td>
+                                        <td>{{carrera.Nombre}}</td>
+                                        <td>{{carrera.Director}}</td>
+                                        <td>{{carrera.facultad.Nombre}}</td>
+
+
+                                        <td>
+                                            <a class="btn btn-warning btn-sm" href="{% url 'carrera:update_Carrera' carrera.id %}" ><span class="glyphicon glyphicon-pencil"></span> Editar</a>
+                                            <a class="btn btn-danger btn-sm" href="{% url 'carrera:delete_Carrera'  carrera.id %}"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                    
+
+                            	</tbody>
+                            </table>
+                            {% else %}
+                            <h4>No hay registros de carreras</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
-           </h6>
-</div>
-    <br>
-<div class="container" style="width:90%;" >
-<a href="{% url 'carrera:create_Carrera' %}" class="btn btn-primary  pull-right "><i class="glyphicon glyphicon-plus"></i> Nueva Carrera</a>
+        </div>
     </div>
-<br>
-<div class="row" align="center" style="width:90%;">
-    <div class="table-responsive">
-<table class="table table-bordered" style="text-align:center;">
-	<thead >
-		<tr>
-			<td>#</td>
-			<td>Nombre Carrera</td>
-			<td>Director de Carrera</td>
-			<td>Facultad</td>
-            <td>Acciones</td>
-		</tr>
-
-	</thead>
-	<tbody>
-        {% if object_list %}
-        {% for carrera in object_list %}
-        <tr>
-            <td>{{carrera.id}}</td>
-            <td>{{carrera.Nombre}}</td>
-            <td>{{carrera.Director}}</td>
-            <td>{{carrera.facultad.Nombre}}</td>
-
-
-            <td>
-                <a class="btn btn-warning" href="{% url 'carrera:update_Carrera' carrera.id %}" ><span class="glyphicon glyphicon-pencil"></span> Editar</a>
-                <a class="btn btn-danger" href="{% url 'carrera:delete_Carrera'  carrera.id %}"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
-
-            </td>
-        </tr>
-        {% endfor %}
-
-        {% else %}
-        <h4>No hay registros de carreras</h4>
-        {% endif %}
-
-	</tbody>
-</table>
-    </div>
-
-</div>
 {% endblock%}
+
+{% block scripts %}
+    <!-- Datatables -->
+    <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/dataTables.responsive.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/responsive.bootstrap4.min.js' %}"></script> -->
+{% endblock %}

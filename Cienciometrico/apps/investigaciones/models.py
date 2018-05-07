@@ -2,17 +2,16 @@ from django.db import models
 
 # Create your models here.
 class investigacion(models.Model):
-    Titulo = models.CharField(max_length=255)
-    Palabras_Claves = models.TextField()
-    Resumen = models.FileField(upload_to='documents/')
-    uploaded_at = models.DateTimeField(auto_now_add=True)
-    Fecha = models.DateField()
-    Editor = models.CharField(max_length=255)
-    Url = models.URLField();
+    titulo = models.CharField(max_length=255)
+    descripcion = models.TextField()
+    fechaInicial=models.DateField()
+    fechaFinal = models.DateField()
+    estado = models.CharField(max_length=255)
+    url = models.URLField()
+    gradoAutoria = models.CharField(max_length=255)
 
     class Meta:
         permissions = (
-
             ("ver_investigaciones", "ver investigaciones"),
 
         )

@@ -5,6 +5,7 @@ from apps.provincia.models import provincia
 class canton (models.Model):
     Nombre=models.CharField(max_length=155)
     provincia=models.ForeignKey(provincia,null=True ,blank=True ,on_delete=models.CASCADE)
+    def __str__(self): return '{}'.format(self.Nombre)
     class Meta:
         permissions = (
             ("ver_canton", "ver canton"),

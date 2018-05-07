@@ -1,81 +1,80 @@
 {% extends 'base1/inicio.html' %}
 {% load staticfiles %}
-{% block extrastatic %}
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   <link rel="stylesheet" href="static/css/animate.min.css">
-{% endblock %}
- {% block home %}
-    <a href="{% url 'inicio:logeo' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
+    {% block subtitle %} 
+        LISTADO DE <span style="color:#FC9C30">ZONAS</span> 
+        <!-- Button trigger modal -->
+        
+        <a href="{% url 'zona:zona_crear' %}" class="btn btn-success  pull-right "><i class="glyphicon glyphicon-plus"></i> Nueva Zona</a>
+    {% endblock%}
+
+    
+    {% block home %}
+    <li class="nav-item">
+        <li><a href="{% url 'inicio:logeo' %}" class="nav-link"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
+    </li>
     {% endblock %}
- {% block zona %}
-            <a href="{% url 'zona:zona_listar' %}" id="uno"class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/iconos-zona.png' %}"> Zona</a>
-			{% endblock %}
+    {% block zona %}
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'zona:zona_listar' %}">
+                <i class="batch-icon batch-icon-star"></i>
+                Zona
+            </a>
+        </li>
+    {% endblock %}
+    {% block content %}
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 pb-5">
+                            <div class="table-responsive">
+                                <table id="datatable-1" class="table table-datatable table-striped table-hover">
+                                	<thead>
+                                		<tr>
+                                			<td >#</td>
+                                			<td style="text-align:left; width:25%;">Nombre</td>
+                                            <td style="text-align:left; width:25%;">Descripción</td>
+                                			<td style="text-align:left; width:25%;">País</td>
+                                			<td>Acciones</td>
+                                		</tr>
+                                		
+                                	</thead>
+                                	<tbody>
+                                        {% if object_list %}
+                                        {% for zona in object_list %}
+                                        <tr>
+                                            <td>{{zona.id}}</td>
+                                            <td>{{zona.Nombre}}</td>
+                                            <td>{{zona.Descripcion}}</td>
+                                            <td>{{ zona.pais.Nombre }}</td>
+                                            <td>
+                                                 <a class="btn btn-primary btn-sm" href="{% url 'zona:zona_editar' zona.id %}"><span class="glyphicon glyphicon-pencil"></span> Editar</a>
+                                                <a class="btn btn-primary btn-sm" href="{% url 'zona:zona_eliminar' zona.id %}"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
 
-{% block content %}
+                                        {% else %}
+                                        <h4>No hay registros de Zonas</h4>
+                                        {% endif %}
 
-<div class="wow fadeInUp animated" style="background: #009688; height:20%;  padding: 1cm 3cm 1cm 3cm;" >
-     <h4 align="center" style="color:white"><span class="glyphicon glyphicon-th-list"></span> LISTADO DE <span style="color:#FC9C30">ZONAS</span> </h4>
-        <h6><div style="float:right;">
-            <strong style="color:white;font-size:100%">Bienvenido/</strong>
-            <strong style="color:white;font-size:100%">{{user.username}}/</strong>
-            <strong style="color:white;font-size:100%"><a href="{% url 'logout'%}" style="color:white;"><span class="glyphicon glyphicon-log-out"></span>Cerrar Sesión</a></strong>
-        </a>
-            </div></h6>
-</div>
-    <br>
-<div class="container" style="width:90%;">
-<a href="{% url 'zona:zona_crear' %}" class="btn btn-primary  pull-right "><i class="glyphicon glyphicon-plus"></i> Nueva Zona</a>
-
-</div>
-<br>
-<div class="container" align="center" style="width:90%;">
-<table class="table table-bordered" style="text-align:center; " >
-
-	<thead>
-		<tr>
-			<td>#</td>
-			<td>Nombre</td>
-            <td>Descripción</td>
-			<td>País</td>
-			<td>Acciones</td>
-		</tr>
-		
-	</thead>
-	<tbody>
-        {% if object_list %}
-        {% for zona in object_list %}
-        <tr>
-            <td>{{zona.id}}</td>
-            <td>{{zona.Nombre}}</td>
-            <td>{{zona.Descripcion}}</td>
-            <td>{{ zona.pais.Nombre }}</td>
-            <td>
-                 <a class="btn btn-warning" href="{% url 'zona:zona_editar' zona.id %}"><span class="glyphicon glyphicon-pencil"></span> Editar</a>
-                <a class="btn btn-danger" href="{% url 'zona:zona_eliminar' zona.id %}"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
-            </td>
-        </tr>
-        {% endfor %}
-
-        {% else %}
-        <h4>No hay registros de Zonas</h4>
-        {% endif %}
-
-	</tbody>
-</table>
-    </div>
-<ul class="pager">
-    <li>
-        {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-        {% endif %}
+                                	</tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </li>
-    <li>
-        {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Next</a>
-        {% endif %}
-    </li>
-</ul>
+        
 
 {% endblock%}
+
+{% block scripts %}
+    <!-- Datatables -->
+    <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/dataTables.responsive.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'assets/plugins/datatables/js/responsive.bootstrap4.min.js' %}"></script> -->
+{% endblock %}

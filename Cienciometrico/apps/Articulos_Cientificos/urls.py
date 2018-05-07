@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from apps.Articulos_Cientificos.models import articulos_cientificos
-from apps.Articulos_Cientificos.views import articulocreate,articuloUpdate,articuloList,articuloDelete
+from apps.Articulos_Cientificos.views import articulocreate, articuloUpdate, articuloList, articuloDelete
 from django.contrib.auth.decorators import login_required
 urlpatterns = [
 

@@ -1,8 +1,5 @@
 {% extends 'base1/inicio.html'%}
 {% load staticfiles %}
-{% load bootstrap %}
-{% load material_form %}
-{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,12 +45,12 @@
             </div></h6>
         </div>
     <br>
-  <div class="container">
+      <div class="container">
 
        <div class="row">
         <div class="input-field col s12">
          <label >Cédula:</label>
-        <input id="input_number" type="number" data-length="10" maxlength="10" minlength="10" name="Cedula" class="validate" required>
+        <input id="input_number" type="number" data-length="10" maxlength="10" minlength="10" name="cedula" class="validate" required>
         </div>
 
       </div>
@@ -73,7 +70,7 @@
        <div class="row">
             <div class="input-field col s6">
               <label >Teléfono:</label>
-                 <input type="number" name="Telefono" class="validate" required>
+                 <input type="number" name="telefono" class="validate" required>
           </div>
 
           <div class="input-field col s6">
@@ -85,34 +82,26 @@
 
 	<div class="content">
                    <div class="col-md-14 col-md-offset-">
-                  <label >Género:</label>
-                 <select name="Genero" class="browser-default" >
-
-                            <option value="Masculino" >Masculino</option>
-
-                            <option value="Femenino" >Femenino</option>
-
-
-                    </select>
+                  {{form.genero}}
 	</div>
         </div>
 
 	 <div class="row">
         <div class="input-field col s12">
-                  <label >Ciudadanía:</label>
-                 <input type="text" name="Ciudadania" class="validate" required >
+                  <label >Nacionalidad:</label>
+                 <input type="text" name="nacionalidad" class="validate" required >
 	</div>
         </div>
 
       <div class="row">
             <div class=" col s8">
 		<label >Dirección:</label>
-		<input type="text" name="Direccion" class="form-control" id="address1" required>
+		<input type="text" name="direccion" class="form-control" id="address1" required>
             </div>
 
           <div class="input-field col s2">
                <input type="button"   class="btn btn-success" value="Obtener Dirección" onclick="codeLatLng()" >
-              <input id="latlng" value="-0.917476, -78.632573"  style="display:none" type="text" name="Coordenadas" class="form-control" >
+              <input id="latlng" value="-0.917476, -78.632573"  style="display:none" type="text" name="coordenadas" class="form-control" >
 
           </div>
 
@@ -141,7 +130,7 @@
 	<div class="row">
                    <div class=" col s12">
                   <label >Roles:</label>
-				  {% render_field form.roles id="filled-in" class="filled-in" %}
+				  {{ form.roles}}
 
 	</div>
         </div>

@@ -9,21 +9,21 @@ class FormacionAform (forms.ModelForm):
             'NombreTitulo',
             'Fecha_Fin_Estudios',
             'Nombre_Centro_Estudios',
-
+            'user'
         ]
         labels={
             'Nivel_Estudios':'Nivel_Estudios' ,
             'NombreTitulo':'Nombre del titulo',
             'Fecha_Fin_Estudios' :'Fecha_Fin_Estudios',
             'Nombre_Centro_Estudios':'Nombre_Centro_Estudios',
-
+            'user': '',
         }
 
         widgets = {
             'Nivel_Estudios':forms.Select(attrs={'class':'form-control'}),
             'NombreTitulo': forms.TextInput(attrs={'class': 'form-control'}),
-            'Fecha_Fin_Estudios':forms.DateInput(attrs={'class':'form-control'}),
+            'Fecha_Fin_Estudios':forms.DateInput(attrs={'class':'form-control datepicker', 'type':'date'}),
             'Nombre_Centro_Estudios':forms.TextInput(attrs={'class':'form-control'}),
-
+            'user': forms.HiddenInput(attrs={'class': 'form-control', 'id': 'user'}),
 
         }

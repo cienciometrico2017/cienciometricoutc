@@ -7,7 +7,7 @@ from apps.investigaciones.views import InvestigacionList,Investigacioncrear,Inve
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    url(r'^uploads/form/$', login_required(Investigacioncrear), name='investigaciones_crear'),
+    url(r'^nuevo/$', login_required(Investigacioncrear), name='investigaciones_crear'),
     url(r'^listar', login_required(InvestigacionList.as_view(queryset= investigacion.objects.all().order_by('id'))), name='investigaciones_lis'),
     url(r'^editar/(?P<id_investigacion>\d+)/$',login_required(InvestigacionEdit), name='investigaciones_update'),
     url(r'^eliminar/(?P<pk>\d+)/$',login_required(InvestigacionDelete.as_view()), name='investigaciones_eliminar'),

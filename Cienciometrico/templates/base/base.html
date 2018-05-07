@@ -3,7 +3,7 @@
 <html style="min-height: 100%;  position: relative;">
 <head>
 	{% block extrastatic %}
-
+    <link rel="icon" type="image/png" href="static/images/favicon.ico"/>
    <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="static/css/animate.min.css">
 <link rel="stylesheet" href="{% static 'css/login.css'%}">
@@ -14,7 +14,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   {% endblock %}
-    <title>{% block title %}Document {% endblock %}</title>
+    <title>{% block title %}Home {% endblock %}</title>
    <meta charset='utf-8'>
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,7 +33,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{% url 'iniciop:principal' %}"><span style="color:#FC9C30">SIVPCE CIYA</span></a>
+      <a class="navbar-brand" href="{% url 'iniciop:principal' %}"><span style="color:#FC9C30">Metro Ciencia</span></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -45,7 +45,7 @@
         <li><a href="{% url 'iniciop:similar' %}">Similares</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-               <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
     </div>
   </div>

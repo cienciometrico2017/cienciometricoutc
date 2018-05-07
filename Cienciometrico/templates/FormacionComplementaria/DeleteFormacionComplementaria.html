@@ -1,11 +1,24 @@
 {% extends 'base1/inicio.html'%}
 {% load staticfiles %}
-    {% block home %}
-    <a href="{% url 'inicio:logeo' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
-    {% endblock %}
- 	{% block itemForCompl %}
-    <a href="{% url 'FormacionComplementaria:lista_Formacion_Complementaria' %}" id="uno" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/FormaComp.png' %}">Formación Complementaria</a>
-    {% endblock %}
+{% block subtitle  %}
+    MIS <span style="color:#FC9C30">titulos</span>
+
+{% endblock%}
+
+{% block home %}
+<li class="nav-item">
+    <li><a href="{% url 'inicio:logeo' %}" class="nav-link"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
+</li>
+{% endblock %}
+{% block itemForCompl %}
+<li class="nav-item">
+    <a class="nav-link active" href="{% url 'FormacionComplementaria:lista_Formacion_Complementaria' %}">
+        <i class="batch-icon batch-icon-stamp-alt"></i>
+        Título cuarto grado
+    </a>
+</li>
+
+{% endblock %}
 {% block content %}
 <form method="post">
     {% csrf_token %}

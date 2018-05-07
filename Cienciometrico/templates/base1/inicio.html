@@ -1,261 +1,731 @@
 {% load staticfiles %}
 
 <!DOCTYPE html>
-<style>
-footer {
-    padding: 1em;
-    color: white;
-    background: #009688;
-    clear: left;
-    text-align: center;
-}
+<html lang="es">
+	<head>
+	    <title>{% block title %} Perfil {% endblock %}</title>
+		{% block extrastatic %}
 
-</style>
-<html>
-	<title>{% block title %}Cienciometrico {% endblock %}</title>
-	{% block extrastatic %}
-	{% endblock %}
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="{% static 'css/inputTags.css' %}">
-
-     <script type="text/javascript" src="{% static 'js/inputTags.jquery.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
-
-     {% include 'material/includes/material_css.html' %}
-    <script src="{% static 'material/js/jquery.js' %}"></script>
-    {% include 'material/includes/material_js.html' %}
-<head><script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-       <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script>
-    $(document).ready(function(){
-    $('.datepicker').pickadate({
-    selectMonths: false, // Creates a dropdown to control month
-    selectYears: 15,
-    today: 'Today',
-    format:'dd/mm/yyyy',
-    clear: 'Clear',
-    close: 'Ok',
-    closeOnSelect: false // Close upon selecting a date,
-  });
-  });
-    </script>
-
-
-    <script>
-     $(document).ready( function () {
-      $(':input[type=text]').on("keypress", function () {
-       $input=$(this);
-       setTimeout(function () {
-        $input.val($input.val().toUpperCase());
-       });
-      })
-     })
-    </script>
-    <style>
-		#uno {
-		background-color: #009688 !important;
-		}
-	</style>
-
-	<body onload="codeLatLng()" >
-
-		{% block navbar %}
-		<div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left" style="width:200px; background:#E7F1F0; " id="mySidebar">
-			<button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">Close &times;</button>
-             {% block home %}
-    <a href="{% url 'inicio:logeo' %}" id="uno" class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/home.png' %}"> Home</a>
-    {% endblock %}
-            {% if user.is_authenticated and user.is_staff == True and user.is_superuser == True %}
-
-            <label>Datos Generales</label>
-            <hr style="margin-top: 0.5em; margin-bottom: 0.5em; margin-left: auto;   margin-right: auto; border-style: inset;   border-width: 1px;">
-            {% block pais %}
-			<a href="{% url 'pais:pais_listar' %}" class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/globe.png' %}"> País</a>
-			{% endblock %}
-            {% block zona %}
-            <a href="{% url 'zona:zona_listar' %}" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/iconos-zona.png' %}"> Zona</a>
-			{% endblock %}
-            {% block provincia %}
-            <a href="{% url 'provincia:provincia_listar' %}"class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/country.png' %}"> Provincia</a>
-			{% endblock %}
-
-            {% block canton %}
-            <a href="{% url 'canton:canton_listar' %}" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/city.png' %}"> Cantón</a>
-			{% endblock %}
-
-            {% block universidad %}
-            <a href="{% url 'universidad:universidad_listar' %}" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/university.png' %}"> Universidad</a>
-			{% endblock %}
-            {% endif %}
-            {% for us in usuario%}
-
-            {% if us == 'ver_campus' %}
-            {% block campus %}
-            <a href="{% url 'campus:campus_listar' %}" class="w3-bar-item w3-button"> <img width="15%" src="{% static 'images/campus.png' %}"> Campus</a>
-			{% endblock %}
-            {% endif %}
-            {% if us == 'ver_facultad' %}
-            {% block Facultad %}
-            <a href="{% url 'Facultad:lista_Facultad' %}"  class="w3-bar-item w3-button"> <img width="15%" src="{% static 'images/facultad5.png' %}"> Facultad</a>
-			{% endblock %}
-            {% endif %}
-            {% endfor%}
-            {% for us in usuario%}
-            {% if us == 'ver_carrera' %}
-            {% block carrera %}
-            <a href="{% url 'carrera:lista_Carrera' %}"  class="w3-bar-item w3-button"> <img width="15%" src="{% static 'images/carrera.png' %}"> Carrera</a>
-			{% endblock %}
-
-            {% endif %}
-            {% endfor%}
-            {% if user.is_authenticated and user.is_staff == True and user.is_superuser == True %}
-            {% block itemRevista %}
-            <a href="{% url 'Revista:lista_Revista' %}" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/revista.png' %}">Revista</a>
-            {% endblock %}
-            {% endif%}
-            {% if user.is_authenticated and user.is_staff == True and user.is_superuser == True %}
-            <label>Usuario</label>
-            <hr style="margin-top: 0.5em; margin-bottom: 0.5em; margin-left: auto;   margin-right: auto; border-style: inset;   border-width: 1px;">
-            {% block rol %}
-            <a href="{% url 'roles:crear_rol' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/roles.png' %}"> Rol</a>
-	        {% endblock %}
-
-
-            {% block usuario %}
-                <a href="{% url 'usuario:registrar' %}" class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/User.png' %}"> Usuario</a>
-            {% endblock %}
-            {% endif %}
-
-            {% for us in usuario%}
-            {% if us == 'ver_datosprofesionales' %}
-            <label>Datos Usuario</label>
-            <hr style="margin-top: 0.5em; margin-bottom: 0.5em; margin-left: auto;   margin-right: auto; border-style: inset;   border-width: 1px;">
-			{% block item5 %}
-            <a href="{% url 'datosprofe:datosprofe_listar' %}"  class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/globe.png' %}"> Datos Profesionales</a>
-            {% endblock %}
-            {% endif %}
-            {% if us == 'ver_formacionAcademica' %}
-            {% block itemForAcad %}
-            <a href="{% url 'FormacionAcademica:lista_Formacion_Academica' %}" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/FormaAcad.png' %}">Formación Académica</a>
-            {% endblock %}
-            {% endif %}
-            {% if us == 'ver_FormacionComplementaria' %}
-            {% block itemForCompl %}
-            <a href="{% url 'FormacionComplementaria:lista_Formacion_Complementaria' %}" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/FormaComp.png' %}">Formación Complementaria</a>
-            {% endblock %}
-            {% endif %}
-            {% endfor %}
-            {% for us in usuario%}
-            {% if us == 'ver_articulo' %}
-            <label>Producción Científica</label>
-            <hr style="margin-top: 0.5em; margin-bottom: 0.5em; margin-left: auto;   margin-right: auto; border-style: inset;   border-width: 1px;">
-            {% block itemArti %}
-            <a href="{% url 'articulosCientificos:ListaArticulo' %}" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/articuloCient.png' %}">Artículos Científicos</a>
-            {% endblock %}
-            {% endif %}
-            {% if us == 'ver_libro' %}
-            {% block itemLibro %}
-            <a href="{% url 'Libro:libro_lis' %}" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/libro.png' %}">Libros</a>
-            {% endblock %}
-            {% endif %}
-            {% if us == 'ver_ParticipacionesEventos' %}
-            {% block item2 %}
-            <a href="{% url 'partevento:partevento_lis' %}"class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/country.png' %}"> Participación en Eventos</a>
-            {% endblock %}
-            {% endif %}
-            {% endfor %}
-            {% for us in usuario%}
-            {% if us == 'ver_Proyectos' %}
-            <label>Producción Científica</label>
-            <hr style="margin-top: 0.5em; margin-bottom: 0.5em; margin-left: auto;   margin-right: auto; border-style: inset;   border-width: 1px;">
-            {% block itemProyecto %}
-            <a href="{% url 'proyecto:proyectos_lis' %}" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/project.png' %}">Proyectos</a>
-            {% endblock %}
-            {% endif %}
-            {% endfor %}
-            {% for us in usuario%}
-            {% if us == 'ver_otrasinvestigaciones' %}
-            {% block item1 %}
-            <a href="{% url 'otrainvestigacion:otrasinvestigaciones_lis' %}" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/iconos-zona.png' %}"> Otras Investigaciones</a>
-            {% endblock %}
-            {% endif %}
-            {% if us == 'ver_Publicaciones' %}
-            {% block itemPublicaciones %}
-            <a href="{% url 'publicaciones:lista_Publicaciones' %}" class="w3-bar-item w3-button"><img width="15%" src="{% static 'images/publicaciones.png' %}">Otras Publicaciones</a>
-            {% endblock %}
-            {% endif %}
-            {% endfor %}
-            {% for us in usuario%}
-            {% if us == 'ver_investigaciones' %}
-
-            {% block item %}
-            <a href="{% url 'investigacion:investigaciones_lis' %}" class=" w3-bar-item w3-button"><img width="15%" src="{% static 'images/globe.png' %}"> Investigaciones</a>
-            {% endblock %}
-            {% endif %}
-
-            {% if us == 'ver_evento' %}
-            {% block eveto %}
-            <a href="{% url 'evento:lista_Evento' %}"  class="w3-bar-item w3-button"> <img width="15%" src="{% static 'images/evento.png' %}">Evento</a>
-			{% endblock %}
-            {% endif %}
-
-
-
-
-
-
-
-
-
-
-            {% endfor %}
-
-		</div>
-		<div class="w3-main" style="margin-left:200px; ">
-			<div class="w3-teal"  >
-				<button class="w3-button w3-teal w3-xlarge w3-hide-large"  onclick="w3_open()">&#9776;</button>
-			</div>
-			{% endblock %}
-			{% block content %}
-            <div class="wow fadeInUp animated" style="background: #009688; height:20%;  padding: 1cm 3cm 1cm 3cm;" >
-        <div style="float:right;">
-            <strong style="color:white;font-size:100%">Bienvenido/</strong>
-            <strong style="color:white;font-size:100%">{{user.username}}/</strong>
-            <strong style="color:white;font-size:100%"><a href="{% url 'logout'%}" style="color:white;"><span class="glyphicon glyphicon-log-out"></span>Cerrar Sesion</a></strong>
-        </a>
-            </div>
-    </div>
-
-			<div class="w3-container">
-				 <div align="middle" style="margin:17% auto;"><img  src="{% static 'images/logo.png' %}" alt="" ></div>
-			</div>
-
-            <footer>Copyright 2018 &copy; </footer>
-		</div>
 		{% endblock %}
-		<script>
-			function w3_open() {
-			    document.getElementById("mySidebar").style.display = "block";
-			}
-			function w3_close() {
-			    document.getElementById("mySidebar").style.display = "none";
-			}
-		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="{% static 'assets/img/favicon.png' %}">
+		<title>QuillPro - Bootstrap 4 Dashboard Template</title>
+		<!-- Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&amp;subset=latin-ext" rel="stylesheet">
 
-     <style>
-         #uno {
-    background-color: #009688 !important;
-    }
-    </style>
+		<!-- CSS - REQUIRED - START -->
+		<!-- Batch Icons -->
+		<link rel="stylesheet" href="{% static 'assets/fonts/batch-icons/css/batch-icons.css' %}">
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="{% static 'assets/css/bootstrap/bootstrap.min.css' %}">
+		<!-- Material Design Bootstrap -->
+		<link rel="stylesheet" href="{% static 'assets/css/bootstrap/mdb.min.css' %}">
+		<!-- Custom Scrollbar -->
+		<link rel="stylesheet" href="{% static 'assets/plugins/custom-scrollbar/jquery.mCustomScrollbar.min.css' %}">
+		<!-- Hamburger Menu -->
+		<link rel="stylesheet" href="{% static 'assets/css/hamburgers/hamburgers.css' %}">
+
+		<!-- CSS - REQUIRED - END -->
+
+		<!-- CSS - OPTIONAL - START -->
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="{% static 'assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="{% static 'assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+		<!-- JVMaps -->
+		<link rel="stylesheet" href="{% static 'assets/plugins/jvmaps/jqvmap.min.css' %}">
+		<!-- CSS - OPTIONAL - END -->
+
+		<!-- QuillPro Styles -->
+		<link rel="stylesheet" href="{% static 'assets/css/quillpro/quillpro.css' %}">
 
 
+
+	</head>
+	<body>
+		<div class="container-fluid">
+		<div class="row">
+			<nav id="sidebar" class="px-0 bg-dark bg-gradient sidebar">
+				<ul class="nav nav-pills flex-column">
+					<li class="logo-nav-item">
+						<a class="navbar-brand" href="{% url 'inicio:logeo' %}">
+							<img src="{% static 'images/logo5.png' %}" width="170" alt="QuillPro">
+						</a>
+					</li>
+					{% block home %}
+					<li class="nav-item">
+    					<li><a href="{% url 'inicio:logeo' %}" class="nav-link active"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
+					</li>
+					{% endblock %}
+
+					{% block itemLibro %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'Libro:libro_lis' %}">
+							<i class="batch-icon batch-icon-book"></i>
+							Libros
+						</a>
+					</li>
+					{% endblock %}
+					{% block ponencia %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'Ponencia:ponencia_listar' %}">
+							<i class="batch-icon batch-icon-notes"></i>
+							Ponencia
+						</a>
+					</li>
+					{% endblock %}
+					<!--
+					{% block evento %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'evento:lista_Evento' %}">
+							<i class="batch-icon batch-icon-paper-roll-ripped"></i>
+							Evento
+						</a>
+					</li>
+					{% endblock %}
+					-->
+					{% block itemArti %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'articulosCientificos:ListaArticulo' %}">
+							<i class="batch-icon batch-icon-compose"></i>
+							Artículos Científicos
+						</a>
+					</li>
+
+					{% endblock %}
+					
+					
+					{% block itemProyecto %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'proyecto:proyectos_lis' %}">
+							<i class="batch-icon batch-icon-folder-alt-duplicate"></i>
+							Proyectos
+						</a>
+					</li>
+					{% endblock %}
+					
+					{% block itemForAcad %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'FormacionAcademica:lista_Formacion_Academica' %}">
+							<i class="batch-icon batch-icon-stamp-alt"></i>
+							Títulos
+						</a>
+					</li>
+					{% endblock %}
+					<!--
+					{% block itemForCompl %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'FormacionComplementaria:lista_Formacion_Complementaria' %}">
+							<i class="batch-icon batch-icon-stamp-alt"></i>
+							Título cuarto grado
+						</a>
+					</li>
+
+					{% endblock %}
+					
+					-->
+					{% block capacitaciones %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'capacitacion:capacitacion_listar' %}">
+							<i class="batch-icon batch-icon-newspaper-alt"></i>
+							Capacitaciones
+						</a>
+					</li>
+					{% endblock %}
+					{% block interes %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'interes:interes_listar' %}">
+							<i class="batch-icon batch-icon-bulb-alt"></i>
+							Inteses Formativos
+						</a>
+					</li>
+					{% endblock %}
+					<!--
+					{% block item5 %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'datosprofe:datosprofe_listar' %}">
+							<i class="batch-icon batch-icon-star"></i>
+							Datos Profesionales
+						</a>
+					</li>
+					{% endblock %}
+
+					{% block item2 %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'partevento:partevento_lis' %}">
+							<i class="batch-icon batch-icon-star"></i>
+							Participación en Eventos
+						</a>
+					</li>
+					{% endblock %}
+					-->
+				</ul>
+				<ul class="nav nav-pills flex-column">
+
+					
+				</ul>
+				<ul class="nav nav-pills flex-column">
+
+					{% for us in usuario%}
+					{% if us == 'ver_Proyectos' %}
+
+					
+					{% endif %}
+					{% endfor %}
+					<!--
+					{% for us in usuario%}
+					
+					{% if us == 'ver_otrasinvestigaciones' %}
+					{% block item1 %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'otrainvestigacion:otrasinvestigaciones_lis' %}">
+							<i class="batch-icon batch-icon-star"></i>
+							Otras Investigaciones
+						</a>
+					</li>
+
+					{% endblock %}
+					{% endif %}
+					{% if us == 'ver_Publicaciones' %}
+					{% block itemPublicaciones %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'publicaciones:lista_Publicaciones' %}">
+							<i class="batch-icon batch-icon-star"></i>
+							Otras Publicaciones
+						</a>
+					</li>
+					{% endblock %}
+					{% endif %}
+					{% endfor %}
+				-->
+					{% for us in usuario%}
+					{% if us == 'ver_investigaciones' %}
+
+					{% block item %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'investigacion:investigaciones_lis' %}">
+							<i class="batch-icon batch-icon-swap"></i>
+							Investigaciones
+						</a>
+					</li>
+
+					{% endblock %}
+					{% endif %}
+
+					{% if us == 'ver_evento' %}
+
+					{% endif %}
+
+					{% endfor %}
+
+				</ul>
+				<ul class="nav nav-pills flex-column">
+
+					
+					{% if user.is_authenticated and user.is_staff == True and user.is_superuser == True %}
+					<li>
+						<h6 class="nav-header">Datos Generales</h6>
+					</li>
+					{% block pais %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'pais:pais_listar' %}">
+							<i class="batch-icon batch-icon-star"></i>
+							País
+						</a>
+					</li>
+					{% endblock %}
+					{% block zona %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'zona:zona_listar' %}">
+							<i class="batch-icon batch-icon-star"></i>
+							Zona
+						</a>
+					</li>
+					{% endblock %}
+					{% block provincia %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'provincia:provincia_listar' %}">
+							<i class="batch-icon batch-icon-star"></i>
+							Provincia
+						</a>
+					</li>
+					{% endblock %}
+					{% block canton %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'canton:canton_listar' %}">
+							<i class="batch-icon batch-icon-star"></i>
+							Cantón
+						</a>
+					</li>
+					{% endblock %}
+					{% block universidad %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'universidad:universidad_listar' %}">
+							<i class="batch-icon batch-icon-star"></i>
+							Universidad
+						</a>
+					</li>
+					{% endblock %}
+					{% endif %}
+
+					{% for us in usuario%}
+						{% if us == 'ver_campus' %}
+						{% block campus %}
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'campus:campus_listar' %}">
+								<i class="batch-icon batch-icon-star"></i>
+								Campus
+							</a>
+						</li>
+						{% endblock %}
+						{% endif %}
+						{% if us == 'ver_facultad' %}
+						{% block Facultad %}
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'Facultad:lista_Facultad' %}">
+								<i class="batch-icon batch-icon-star"></i>
+								Facultad
+							</a>
+						</li>
+						{% endblock %}
+						{% endif %}
+					{% endfor%}
+
+					{% for us in usuario%}
+						{% if us == 'ver_carrera' %}
+						{% block carrera %}
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'carrera:lista_Carrera' %}">
+								<i class="batch-icon batch-icon-star"></i>
+								Carrera
+							</a>
+						</li>
+						{% endblock %}
+						{% endif %}
+					{% endfor%}
+
+					{% if user.is_authenticated and user.is_staff == True and user.is_superuser == True %}
+						{% block itemRevista %}
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'Revista:lista_Revista' %}">
+								<i class="batch-icon batch-icon-star"></i>
+								Revista
+							</a>
+						</li>
+						{% endblock %}
+					{% endif%}
+
+
+				</ul>
+				<ul class="nav nav-pills flex-column">
+
+					{% if user.is_authenticated and user.is_staff == True and user.is_superuser == True %}
+					<li>
+						<h6 class="nav-header">Usuario</h6>
+					</li>
+						{% block rol %}
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'roles:crear_rol' %}">
+								<i class="batch-icon batch-icon-star"></i>
+								Rol
+							</a>
+						</li>
+						{% endblock %}
+
+
+						{% block usuario %}
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'usuario:registrar' %}">
+								<i class="batch-icon batch-icon-star"></i>
+								Usuario
+							</a>
+						</li>
+						{% endblock %}
+					{% endif %}
+
+				</ul>
+
+			</nav>
+
+
+			<div class="right-column">
+				<nav class="navbar navbar-expand-lg navbar-light bg-white">
+					<a class="navbar-brand d-block d-sm-block d-md-block d-lg-none" href="#">
+						<img src="assets/img/logo-dark.png" width="145" height="32.3" alt="QuillPro">
+					</a>
+					<button class="hamburger hamburger--slider" type="button" data-target=".sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle Sidebar">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</button>
+					<!-- Added Mobile-Only Menu -->
+					<ul class="navbar-nav ml-auto mobile-only-control d-block d-sm-block d-md-block d-lg-none">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="navbar-notification-search-mobile" data-toggle="dropdown" data-flip="false" aria-haspopup="true" aria-expanded="false">
+								<i class="batch-icon batch-icon-search"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-fullscreen" aria-labelledby="navbar-notification-search-mobile">
+								<li>
+									<form class="form-inline my-2 my-lg-0 no-waves-effect">
+										<div class="input-group">
+											<input type="text" class="form-control" placeholder="Search for..." aria-label="Search for..." aria-describedby="basic-addon2">
+											<div class="input-group-append">
+												<button class="btn btn-primary btn-gradient waves-effect waves-light" type="button">
+													<i class="batch-icon batch-icon-search"></i>
+												</button>
+											</div>
+										</div>
+									</form>
+								</li>
+							</ul>
+						</li>
+					</ul>
+
+					<!--  DEPRECATED CODE:
+						<div class="navbar-collapse" id="navbarSupportedContent">
+					-->
+					<!-- USE THIS CODE Instead of the Commented Code Above -->
+					<!-- .collapse added to the element -->
+					<div class="collapse navbar-collapse" id="navbar-header-content">
+						<ul class="navbar-nav navbar-language-translation mr-auto">
+
+						</ul>
+						<ul class="navbar-nav navbar-notifications float-right">
+
+
+						</ul>
+						<ul class="navbar-nav ml-5 navbar-profile">
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" id="navbar-dropdown-navbar-profile" data-toggle="dropdown" data-flip="false" aria-haspopup="true" aria-expanded="false">
+									<div class="profile-name">
+										<b> {{user.first_name}} {{user.last_name}}</b>
+									</div>
+									<div class="profile-picture bg-gradient bg-primary has-message float-right">
+										<img src="{{ perfil.photo.url }}" width="44" height="44">
+									</div>
+								</a>
+								<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-navbar-profile">
+									<li><a class="dropdown-item" href="profiles-member-profile.html">Profile</a></li>
+									<li>
+										<a class="dropdown-item" href="mail-inbox.html">
+											Messages
+											<span class="badge badge-danger badge-pill float-right">3</span>
+										</a>
+									</li>
+									<li><a class="dropdown-item" href="profiles-member-profile.html">Settings</a></li>
+									<li><a class="dropdown-item" href="{% url 'logout'%}">Cerrar Sesión</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</nav>
+				<main class="main-content p-5" role="main">
+					<div class="row">
+						<div class="col-md-12">
+							<h1>{% block subtitle %} Perfil {% endblock%}</h1>
+						</div>
+					</div>
+					<div class="row mb-5">
+						{% block content %}
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-user-profile">
+									<div class="profile-page-left">
+										<div class="row">
+											<div class="col-lg-12 mb-4">
+												<div class="profile-picture profile-picture-lg bg-gradient bg-primary mb-4">
+													<img  src="{{ perfil.photo.url }}"  width="144" height="144">
+
+												</div>
+												<a class="btn btn-primary btn-block btn-gradient" href="#">
+													<i class="batch-icon batch-icon-user-alt-add-2"></i>
+													Follow
+												</a>
+											</div>
+											<div class="col-sm-6">
+												<h5 class="my-0">{{perfil.Cedula}}</h5>
+												<div class="h3 my-0">
+													<a href="#">682</a>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<h5 class="my-0">Following</h5>
+												<div class="h3 my-0">
+													<a href="#">341</a>
+												</div>
+											</div>
+										</div>
+										<hr />
+										<h5>
+											<i class="batch-icon batch-icon-users"></i>
+											Friends
+										</h5>
+										<div class="profile-page-block-outer clearfix">
+											<div class="profile-page-block">
+												<div class="profile-picture bg-gradient bg-primary">
+													<img src="assets/img/profile-pic-2.jpg" width="44" height="44">
+												</div>
+											</div>
+											<div class="profile-page-block">
+												<div class="profile-picture bg-gradient bg-primary">
+													<img src="assets/img/profile-pic-3.jpg" width="44" height="44">
+												</div>
+											</div>
+											<div class="profile-page-block">
+												<div class="profile-picture bg-gradient bg-primary">
+													<img src="assets/img/profile-pic-4.jpg" width="44" height="44">
+												</div>
+											</div>
+											<div class="profile-page-block">
+												<div class="profile-picture bg-gradient bg-primary">
+													<img src="assets/img/profile-pic-5.jpg" width="44" height="44">
+												</div>
+											</div>
+											<div class="profile-page-block">
+												<div class="profile-picture bg-gradient bg-secondary">
+													<img src="assets/img/profile-pic-6.jpg" width="44" height="44">
+												</div>
+											</div>
+											<div class="profile-page-block">
+												<div class="profile-picture bg-gradient bg-primary">
+													<img src="assets/img/profile-pic-2.jpg" width="44" height="44">
+												</div>
+											</div>
+											<div class="profile-page-block">
+												<div class="profile-picture bg-gradient bg-primary">
+													<img src="assets/img/profile-pic-3.jpg" width="44" height="44">
+												</div>
+											</div>
+											<div class="profile-page-block">
+												<div class="profile-picture bg-gradient bg-secondary">
+													<img src="assets/img/profile-pic-4.jpg" width="44" height="44">
+												</div>
+											</div>
+											<div class="profile-page-block">
+												<div class="profile-picture bg-gradient bg-primary">
+													<img src="assets/img/profile-pic-5.jpg" width="44" height="44">
+												</div>
+											</div>
+											<div class="profile-page-block">
+												<div class="profile-picture bg-gradient bg-secondary">
+													<img src="assets/img/profile-pic-6.jpg" width="44" height="44">
+												</div>
+											</div>
+											<div class="profile-page-block">
+												<div class="profile-picture bg-gradient bg-secondary">
+													<img src="assets/img/profile-pic-2.jpg" width="44" height="44">
+												</div>
+											</div>
+											<div class="profile-page-block">
+												<div class="profile-picture bg-gradient bg-primary">
+													<img src="assets/img/profile-pic-3.jpg" width="44" height="44">
+												</div>
+											</div>
+											<a class="float-right mt-2" href="#">More</a>
+										</div>
+										<hr />
+										<h5>
+											<i class="batch-icon batch-icon-image"></i>
+											Album
+										</h5>
+										<a href="#">
+											<img src="assets/img/album-image.jpg" class="img-fluid img-thumbnail" />
+										</a>
+										<a class="float-right mt-2" href="#">More</a>
+									</div>
+									<div class="profile-page-center">
+										<h1 class="card-user-profile-name">{{user.first_name}} {{user.last_name}}</h1>
+										<div class="comment-block">
+											<div class="form-group">
+												<textarea class="form-control" id="comment-textarea" rows="2" placeholder="Enter your comment here..."></textarea>
+												<div class="media-feed-control clearfix">
+													<button type="button" class="btn btn-secondary btn-sm comment-reply float-right">Post</button>
+													<a href="#" data-toggle="tooltip" title="Add Picture">
+														<i class="batch-icon batch-icon-image"></i>
+													</a>
+												</div>
+											</div>
+										</div>
+										<hr />
+										<ul class="list-unstyled mt-5">
+											<li class="media">
+												<div class="profile-picture bg-gradient bg-primary mb-4">
+													<img src="{{ perfil.photo.url }}" width="44" height="44">
+												</div>
+												<div class="media-body">
+													<div class="media-title mt-0 mb-1">
+														<a href="#">Johanna Quinn</a> <small> 1 hour ago</small>
+													</div>
+													Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio.
+													<div class="media-feed-control">
+														<a href="#">
+															<i class="batch-icon batch-icon-heart-full"></i>
+															Like (4)
+														</a>
+														<a href="#">
+															<i class="batch-icon batch-icon-speech-bubble-left-tip"></i>
+															Comment (2)
+														</a>
+														<a href="#">
+															<i class="batch-icon batch-icon-flag"></i>
+															Report
+														</a>
+													</div>
+													<div class="media-body-reply-block">
+														<ul class="list-unstyled">
+															<li class="media mt-4">
+																<div class="profile-picture bg-gradient bg-primary mb-4">
+																	<img src="assets/img/profile-pic-2.jpg" width="44" height="44">
+																</div>
+																<div class="media-body">
+																	<div class="media-title mt-0 mb-1">
+																		<a href="#">Samantha Carter</a> <small> 45 mins ago</small>
+																	</div>
+																	Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio.
+																	<div class="media-feed-control">
+																		<a href="#">
+																			<i class="batch-icon batch-icon-heart-full"></i>
+																			Like
+																		</a>
+																		<a href="#">
+																			<i class="batch-icon batch-icon-speech-bubble-left-tip"></i>
+																			Comment
+																		</a>
+																		<a href="#">
+																			<i class="batch-icon batch-icon-flag"></i>
+																			Report
+																		</a>
+																	</div>
+																</div>
+															</li>
+															<li class="media mt-4">
+																<div class="profile-picture bg-gradient bg-primary mb-4">
+																	<img src="assets/img/profile-pic-3.jpg" width="44" height="44">
+																</div>
+																<div class="media-body">
+																	<div class="media-title mt-0 mb-1">
+																		<a href="#">Teal'c Jaffa</a> <small> 7 mins ago</small>
+																	</div>
+																	Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio.
+																	<div class="media-feed-control">
+																		<a href="#">
+																			<i class="batch-icon batch-icon-heart-full"></i>
+																			Like
+																		</a>
+																		<a href="#">
+																			<i class="batch-icon batch-icon-speech-bubble-left-tip"></i>
+																			Comment
+																		</a>
+																		<a href="#">
+																			<i class="batch-icon batch-icon-flag"></i>
+																			Report
+																		</a>
+																	</div>
+																</div>
+															</li>
+															<li class="comment-reply-block mt-4">
+																<div class="form-group clearfix">
+																	<textarea class="form-control comment-reply-textarea" rows="2" placeholder="Enter your comment here..."></textarea>
+																	<button type="button" class="btn btn-secondary btn-sm comment-reply float-right">Reply</button>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</li>
+											<li class="media">
+												<div class="profile-picture bg-gradient bg-primary mb-4">
+													<img src="assets/img/profile-pic.jpg" width="44" height="44">
+												</div>
+												<div class="media-body">
+													<div class="media-title mt-0 mb-1">
+														<a href="#">Johanna Quinn</a> <small> 1 hour ago</small>
+													</div>
+													<a href="#">
+														<img src="assets/img/album-image.jpg" class="img-fluid img-thumbnail">
+													</a>
+													<div class="media-feed-control">
+														<a href="#">
+															<i class="batch-icon batch-icon-heart-full"></i>
+															Like (57)
+														</a>
+														<a href="#">
+															<i class="batch-icon batch-icon-speech-bubble-left-tip"></i>
+															Comment
+														</a>
+														<a href="#">
+															<i class="batch-icon batch-icon-flag"></i>
+															Report
+														</a>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endblock%}
+					</div>
+
+					<div class="row mb-5">
+						<div class="col-md-12">
+							<footer>
+								Powered by - <a href="http://base5builder.com/?click_source=quillpro_footer_link" target="_blank" style="font-weight:300;color:#ffffff;background:#1d1d1d;padding:0 3px;">Base<span style="color:#ffa733;font-weight:bold">5</span>Builder</a>
+							</footer>
+						</div>
+					</div>
+				</main>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+	    <!-- SCRIPTS - REQUIRED START -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<!-- Bootstrap core JavaScript -->
+		<!-- JQuery -->
+		<script type="text/javascript" src="{% static 'assets/js/jquery/jquery-3.1.1.min.js' %}"></script>
+		<!-- Popper.js - Bootstrap tooltips -->
+		<script type="text/javascript" src="{% static 'assets/js/bootstrap/popper.min.js' %}"></script>
+		<!-- Bootstrap core JavaScript -->
+		<script type="text/javascript" src="{% static 'assets/js/bootstrap/bootstrap.min.js' %}"></script>
+		<!-- MDB core JavaScript -->
+		<script type="text/javascript" src="{% static 'assets/js/bootstrap/mdb.min.js' %}"></script>
+		<!-- Velocity -->
+		<script type="text/javascript" src="{% static 'assets/plugins/velocity/velocity.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'assets/plugins/velocity/velocity.ui.min.js' %}"></script>
+		<!-- Custom Scrollbar -->
+		<script type="text/javascript" src="{% static 'assets/plugins/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+		<!-- jQuery Visible -->
+		<script type="text/javascript" src="{% static 'assets/plugins/jquery_visible/jquery.visible.min.js' %}"></script>
+		<!-- jQuery Visible -->
+		<script type="text/javascript" src="{% static 'assets/plugins/jquery_visible/jquery.visible.min.js' %}"></script>
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<script type="text/javascript" src="{% static 'assets/js/misc/ie10-viewport-bug-workaround.js' %}"></script>
+
+		<!-- SCRIPTS - REQUIRED END -->
+
+		<!-- SCRIPTS - OPTIONAL START -->
+		<!-- ChartJS -->
+		<script type="text/javascript" src="{% static 'assets/plugins/chartjs/chart.bundle.min.js' %}"></script>
+		<!-- JVMaps -->
+		<script type="text/javascript" src="{% static 'assets/plugins/jvmaps/jquery.vmap.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'assets/plugins/jvmaps/maps/jquery.vmap.usa.js' %}"></script>
+		<!-- Image Placeholder -->
+		<script type="text/javascript" src="{% static 'assets/js/misc/holder.min.js' %}"></script>
+
+		{% block scripts %}
+
+		{% endblock %}
+
+		<!-- SCRIPTS - OPTIONAL END -->
+
+		<!-- QuillPro Scripts -->
+		<script type="text/javascript" src="{% static 'assets/js/scripts.js' %}"></script>
 	</body>
 </html>
