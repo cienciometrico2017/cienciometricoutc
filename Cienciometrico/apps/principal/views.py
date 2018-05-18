@@ -3,8 +3,16 @@ from apps.perfiles.models import Perfil
 from apps.roles.models import Rol
 # Create your views here.
 def inde(request):
+
+
     return render(request, 'base/inicio.html')
+def grafica(request):
+
+
+    return render(request, 'base/Graficas.html')
 def producc(request):
+
+
     return render(request, 'base/produccioncientifica.html')
 def similar(request):
     perfil = Perfil.objects.all()

@@ -1,0 +1,51 @@
+{% extends 'base/base.html'%}
+
+
+{% block activ %}
+ <li ><a href="{% url 'iniciop:principal' %}">Inicio</a></li>
+        <li><a  href="{% url 'iniciop:produccion' %}">Producción Científica </a></li>
+          <li><a href="{% url 'iniciop:similar' %}">Similares</a></li>
+        <!-- aqui link grafica-->
+         <li class="active"><a href="{% url 'iniciop:grafic' %}">Graficas</a></li>
+{% endblock %}
+
+
+
+
+{% block content %}
+<style>
+    .color1{
+    background:red;
+    }
+     .color2{
+    background:blue;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-12 col-lg-6   color1" >
+
+    <br>
+        
+    </div>
+    <div class="col-12 col-sm-6 col-md-12 col-lg-6  color2" >
+        <br>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  {% endblock %}

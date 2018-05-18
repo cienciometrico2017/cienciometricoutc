@@ -8,11 +8,19 @@
     <link rel="stylesheet" href="static/css/animate.min.css">
 <link rel="stylesheet" href="{% static 'css/login.css'%}">
    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+
+
    <script src="static/js/script.js"></script>
-	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+
+
   {% endblock %}
     <title>{% block title %}Home {% endblock %}</title>
    <meta charset='utf-8'>
@@ -25,28 +33,25 @@
 </head>
 <body style="margin: 0;  margin-bottom: 40px;">
 {% block navbar %}
-<nav class="navbar navbar-inverse navbar-fixed-top">
+
+ <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-      <a class="navbar-brand" href="{% url 'iniciop:principal' %}"><span style="color:#FC9C30">Metro Ciencia</span></a>
+      <a class="navbar-brand" href="#">EcuCiencia</a>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="{% url 'iniciop:principal' %}">Inicio</a></li>
-        <li>
-          <a  href="{% url 'iniciop:produccion' %}">Producción Científica </a>
+    <ul class="nav navbar-nav">
 
-        </li>
 
-        <li><a href="{% url 'iniciop:similar' %}">Similares</a></li>
+        <!--      aqui cambiamos los active-->
+
+    {% block activ %}
+       <li class="active"><a href="{% url 'iniciop:principal' %}">Inicio</a></li>
+
+        <li><a  href="{% url 'iniciop:produccion' %}">Producción Científica </a></li>
+          <li><a href="{% url 'iniciop:similar' %}">Similares</a></li>
         <!-- aqui link grafica-->
-         <li><a href="{% url 'iniciop:similar' %}">Similares</a></li>
+         <li><a href="{% url 'iniciop:grafic' %}">Graficas</a></li>
+{% endblock %}
 
 
 
@@ -54,17 +59,16 @@
 
 
 
-
-
-
-
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-          <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-    </div>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
   </div>
 </nav>
+
+
+
 {% endblock %}
 {% block content %}
   <h4>  Bloque de contenido   </h4>
