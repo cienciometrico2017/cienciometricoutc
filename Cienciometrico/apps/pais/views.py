@@ -33,6 +33,12 @@ class PaisList(ListView):
         context['usuario'] = privilegio
         return context
 
+
+
+
+
+
+
 class PaisCreate(CreateView):
     model = pais
     form_class = PaisForm
@@ -58,6 +64,12 @@ class PaisCreate(CreateView):
                 privilegio.append(i)
         context['usuario'] = privilegio
         return context
+
+
+
+
+
+
 class PaisUpdate(UpdateView):
     model = pais
     form_class = PaisForm
@@ -83,6 +95,10 @@ class PaisUpdate(UpdateView):
                 privilegio.append(i)
         context['usuario'] = privilegio
         return context
+
+
+
+
 class PaisDelete(DeleteView):
     model = pais
     template_name = 'pais/pais_eliminar.html'

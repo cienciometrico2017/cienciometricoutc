@@ -11,7 +11,7 @@ from apps.zona.models import zona
 class ProvinciaList(ListView):
     model = provincia
     template_name = 'provincia/provincia_listar.html'
-    paginate_by = 6
+  #  paginate_by = 6
     def get_context_data(self, **kwargs):
         context = super(ProvinciaList, self).get_context_data(**kwargs)
         usuario = self.request.user.id
@@ -32,6 +32,12 @@ class ProvinciaList(ListView):
                 privilegio.append(i)
         context['usuario'] = privilegio
         return context
+
+
+
+
+
+
 class ProvinciaCreate(CreateView):
     model = provincia
     form_class = ProvinciaForm
@@ -62,6 +68,17 @@ class ProvinciaCreate(CreateView):
         context['Pais'] = Pais
         context['Zona'] = Zona
         return context
+
+
+
+
+
+
+
+
+
+
+
 class ProvinciaUpdate(UpdateView):
     model = provincia
     form_class = ProvinciaForm

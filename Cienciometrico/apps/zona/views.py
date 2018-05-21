@@ -9,7 +9,7 @@ from apps.roles.models import Rol
 class ZonaList(ListView):
     model = zona
     template_name='zona/zona_listar.html'
-    paginate_by = 6
+    #paginate_by = 6
     def get_context_data(self, **kwargs):
         context = super(ZonaList, self).get_context_data(**kwargs)
         usuario = self.request.user.id

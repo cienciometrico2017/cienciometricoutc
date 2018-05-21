@@ -33,9 +33,9 @@
                             	<thead>
                             		<tr>
                             			<td>#</td>
-                            			<td>Nombre</td>
-                                        <td>Provincia</td>
-                            			<td>Universidad</td>
+                            			<td  style="text-align:center;width:20%;">Nombre</td>
+                                        <td  style="text-align:center;width:20%;"> Provincia</td>
+                            			<td style="text-align:center;width:35%;">Universidad</td>
                                         <td>Acciones</td>
                             		</tr>
                             		
@@ -48,9 +48,11 @@
                                         <td>{{campus.Nombre}}</td>
                                         <td>{{campus.provincia.Nombre}}</td>
                                         <td>{{campus.universidad.Nombre }}</td>
+
+
                                         <td>
-                                             <a class="btn btn-warning btn-sm" href="{% url 'campus:campus_update' campus.id %}"><span class="glyphicon glyphicon-pencil"></span> Editar</a>
-                                            <a class="btn btn-danger btn-sm" href="{% url 'campus:campus_delete' campus.id %}"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                                             <a class="btn btn-primary btn-sm" href="{% url 'campus:campus_update' campus.id %}"><span class="glyphicon glyphicon-pencil"></span> Editar</a>
+                                            <a class="btn btn-primary btn-sm" href="{% url 'campus:campus_delete' campus.id %}"><span class="glyphicon glyphicon-trash"></span> Eliminar</a>
                                         </td>
                                     </tr>
                                     {% endfor %}

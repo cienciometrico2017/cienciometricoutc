@@ -1,6 +1,6 @@
 	{% extends 'base1/inicio.html' %}
 {% load staticfiles %}
-{% load material_form %}
+
 {% block subtitle %}
         NUEVO <span style="color:#FC9C30">PAÍS</span> <a href="{% url 'pais:pais_listar' %}" class="btn btn-success  pull-right"><i class="glyphicon glyphicon-eye-open"></i> Ver Todos</a>
 {% endblock%}
@@ -36,6 +36,7 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<button class="btn btn-primary "type="submit"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+									 <a class="btn btn-default" href="{% url 'pais:pais_listar' %}">Cancelar</a>
 									</div>
 								</div>
 							</div>

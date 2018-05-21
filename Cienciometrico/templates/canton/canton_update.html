@@ -1,13 +1,17 @@
 {% extends 'base1/inicio.html' %}
 {% load staticfiles %}
-{% block subtitle %} 
-    ACTUALIZAR INFORMACIÓN DEL <span style="color:#FC9C30">CANTÓN</span> 
+{% block subtitle %}
+    ACTUALIZAR  <span style="color:#FC9C30">CANTÓN</span>
 {% endblock%}
+
 {% block home %}
 <li class="nav-item">
     <li><a href="{% url 'inicio:logeo' %}" class="nav-link"><i class="batch-icon batch-icon-browser-alt"></i> <span>Inicio</span></a>
 </li>
 {% endblock %}
+
+
+
 {% block canton %}
 <li class="nav-item">
     <a class="nav-link active" href="{% url 'canton:canton_listar' %}">
@@ -24,23 +28,26 @@
                     <div class="col-lg-12 pb-5">
 						<form method="post">
 						    {% csrf_token %}
-						    
+
 						    <div class="row">
 								<div class="col-md-12">
 									<div class="form-group">
+
 										<label>Nombre</label>
 										<input class="form-control" type="text" name="Nombre" value="{{canton.Nombre}}">
 									</div>
 								</div>
 							</div>
+
 						    <div class="row">
 								<div class="col-md-12">
-									<div class="form-group">
-										<label for="{{form.provincia.Nombre}}">{{form.provincia.label}}</label>
-										{{form.provincia}}
-									</div>
+									 <div class="form-group">
+                                        <label>Provincia</label>
+                                       {{form.provincia}}
+                                        </div>
 								</div>
 							</div>
+
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group">

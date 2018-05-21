@@ -6,10 +6,13 @@ from django.views.generic import ListView, CreateView,UpdateView,DeleteView
 from apps.perfiles.models import Perfil
 from apps.roles.models import Rol
 # Create your views here.
+
+
+
 class CantonList(ListView):
     model = canton
     template_name = 'canton/canton_listar.html'
-    paginate_by = 6
+    #paginate_by = 6
     def get_context_data(self, **kwargs):
         context = super(CantonList, self).get_context_data(**kwargs)
         usuario = self.request.user.id
@@ -55,6 +58,9 @@ class CantonCreate(CreateView):
                 privilegio.append(i)
         context['usuario'] = privilegio
         return context
+
+
+
 class CantonUpdate(UpdateView):
     model = canton
     form_class =CantonForm
@@ -79,7 +85,37 @@ class CantonUpdate(UpdateView):
             if i not in privilegio:
                 privilegio.append(i)
         context['usuario'] = privilegio
+     #   context['Provincia'] = Provincia
+
+
         return context
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class CantonDelete(DeleteView):
     model = canton
     template_name = 'canton/canton_delete.html'
