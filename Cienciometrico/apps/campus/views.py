@@ -80,9 +80,29 @@ class CampusUpdate(UpdateView):
     form_class =CampusForm
     template_name = 'campus/campus_update.html'
     success_url = reverse_lazy('campus:campus_listar')
+    def get_context_data(self, **kwargs):
+        context = super(CampusUpdate, self).get_context_data(**kwargs)
+        usuario = self.request.user.id
+        perfil = Perfil.objects.get(user_id=usuario)
+        roles = perfil.roles.all()
+        privi = []
+        privilegios = []
+        privilegio = []
+        for r in roles:
+            privi.append(r.id)
+        for p in privi:
+            roles5 = Rol.objects.get(pk=p)
+            priv = roles5.privilegios.all()
+            for pr in priv:
+                privilegios.append(pr.codename)
+        for i in privilegios:
+            if i not in privilegio:
+                privilegio.append(i)
+        context['usuario'] = privilegio
 
 
 
+        return context
 
 
 
