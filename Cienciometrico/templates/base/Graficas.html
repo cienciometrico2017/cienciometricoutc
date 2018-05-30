@@ -2,38 +2,180 @@
 
 
 {% block activ %}
- <li ><a href="{% url 'iniciop:principal' %}">Inicio</a></li>
+<li ><a href="{% url 'iniciop:principal' %}">Inicio</a></li>
 
-        <li><a  href="{% url 'iniciop:produccion' %}">Producción Científica </a></li>
-          <li><a href="{% url 'iniciop:similar' %}">Similares</a></li>
-        <!-- aqui link grafica-->
-         <li class="active"><a href="{% url 'iniciop:grafic' %}">Graficas</a></li>
+<li><a  href="{% url 'iniciop:produccion' %}">Producción Científica </a></li>
+<li><a href="{% url 'iniciop:similar' %}">Similares</a></li>
+<!-- aqui link grafica-->
+<li class="active"><a href="{% url 'iniciop:grafic' %}">Graficas</a></li>
 {% endblock %}
 
+ {% block navbar %}
+               <li class=" nav-item   "><a href="{% url 'iniciop:principal' %}" class="nav-link fa fa-home"> Inicio</a></li>
+                <li class=" nav-item  "><a  href="{% url 'iniciop:produccion' %}" class="nav-link fa fa-flask"> Producción Científica </a></li>
+                <li class=" nav-item  "><a href="{% url 'iniciop:similar' %}" class="nav-link fa fa-pie-chart"> Similares</a></li>
+                <!-- aqui link grafica-->
+                <li class=" nav-item  active"><a href="{% url 'iniciop:grafic' %}" class="nav-link fa fa-bar-chart"> Graficas</a></li>
+                <li class=" nav-item  "><a href="{% url 'login' %}" class="nav-link fa fa-sign-in"> Sign Up</a></li>
+                <li class=" nav-item  "><a href="{% url 'login' %}" class="nav-link fa fa-sign-out"> Login</a></li>
 
-
+ {% endblock %}
 
 {% block content %}
-<style>
-    .color1{
-    background:red;
-    }
-     .color2{
-    background:blue;
-    }
-</style>
-
 
 <div class="row">
-    <div class="col-12 col-sm-6 col-md-12 col-lg-6   color1" >
+    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-x1-3" style=" align-content: center;"><!-- inicio columna master 1-->
+        <h3 style=" text-align: center">
+            Filtrar
+        </h3>
 
-    <br>
+        <div class="row"> <!-- inicio fila 1-->
+            <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-x1-1"></div>
+            <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-x1-5"> <!-- inicio columna 1-->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Zona</label>
+                            <select class="form-control" id="pais" onchange="paises()">
+                                <option>--Seleccione--</option>
+                                {% for p in  Pais%}
+                                <option value="{{ p.pk }}">{{p.Nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Universidad</label>
+                            <select class="form-control" id="pais" onchange="paises()" >
+                                <option>--Seleccione--</option>
+                                {% for p in  Pais%}
+                                <option value="{{ p.pk }}">{{p.Nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div >
+
+            </div>  <!-- fin columna 1-->
+
+
+
+            <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-x1-5" style="align-content: space-between"><!-- inicio coluna 2-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Facultad</label>
+                            <select class="form-control" id="pais" onchange="paises()">
+                                <option>--Seleccione--</option>
+                                {% for p in  Pais%}
+                                <option value="{{ p.pk }}">{{p.Nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Carrera</label>
+                            <select class="form-control" id="pais" onchange="paises()">
+                                <option>--Seleccione--</option>
+                                {% for p in  Pais%}
+                                <option value="{{ p.pk }}">{{p.Nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- fin columna 2-->
+
+
+
+
+
+
+        </div><!-- fin fila 1-->
+    </div> <!-- fin columna master 1-->
+
+
+    <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-x1-9" ><!-- inicio columna master 2-->
+
+
+        <table class="table" id="tblInvestigadores">
+
+
+                        <thead>
+                            <tr class="alert alert-warning">
+                                <th>No.</th>
+                                <th>nombre</th>
+                                <th>descripcion</th>
+                                <
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for z in zona %}
+                            <tr>
+                                <td>{{z.id}}</td>
+                                <td>{{z.Nombre}}</td>
+                                <td>{{z.Descripcion}}</td>
+
+                            </tr>
+                            {% endfor%}
+
+                        </tbody>
+
+                    </table>
+
+         <table class="table" id="tblInvestigadores">
+
+
+                        <thead>
+                            <tr class="alert alert-warning">
+                                <th>No.</th>
+                                <th>nombre</th>
+
+                                <
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for u in universidad %}
+                            <tr>
+                                <td>{{u.id}}</td>
+                                <td>{{u.Nombre}}</td>
+
+
+                            </tr>
+                            {% endfor%}
+
+                        </tbody>
+
+                    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+       
         
-    </div>
-    <div class="col-12 col-sm-6 col-md-12 col-lg-6  color2" >
-        <br>
-    </div>
-
+	                      
+        
+    </div><!-- fin columna master 2-->
 
 </div>
 
@@ -49,4 +191,12 @@
 
 
 
-  {% endblock %}
+
+
+
+
+
+
+
+
+{% endblock %}
