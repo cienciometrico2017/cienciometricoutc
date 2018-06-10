@@ -1,202 +1,311 @@
 {% extends 'base/base.html'%}
+{% load staticfiles %}
+
+      {% block extrastatic %}
+       <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js'%}"></script>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+          <link rel="stylesheet" href="{% static 'css/c3.min.css'%}">
 
 
-{% block activ %}
-<li ><a href="{% url 'iniciop:principal' %}">Inicio</a></li>
 
-<li><a  href="{% url 'iniciop:produccion' %}">Producción Científica </a></li>
-<li><a href="{% url 'iniciop:similar' %}">Similares</a></li>
-<!-- aqui link grafica-->
-<li class="active"><a href="{% url 'iniciop:grafic' %}">Graficas</a></li>
 {% endblock %}
 
- {% block navbar %}
-               <li class=" nav-item   "><a href="{% url 'iniciop:principal' %}" class="nav-link fa fa-home"> Inicio</a></li>
-                <li class=" nav-item  "><a  href="{% url 'iniciop:produccion' %}" class="nav-link fa fa-flask"> Producción Científica </a></li>
-                <li class=" nav-item  "><a href="{% url 'iniciop:similar' %}" class="nav-link fa fa-pie-chart"> Similares</a></li>
-                <!-- aqui link grafica-->
-                <li class=" nav-item  active"><a href="{% url 'iniciop:grafic' %}" class="nav-link fa fa-bar-chart"> Graficas</a></li>
-                <li class=" nav-item  "><a href="{% url 'login' %}" class="nav-link fa fa-sign-in"> Sign Up</a></li>
-                <li class=" nav-item  "><a href="{% url 'login' %}" class="nav-link fa fa-sign-out"> Login</a></li>
 
- {% endblock %}
+
+{% block navbar %}
+<li class=" nav-item   "><a href="{% url 'iniciop:principal' %}" class="nav-link fa fa-home"> Inicio</a></li>
+<li class=" nav-item  "><a  href="{% url 'iniciop:produccion' %}" class="nav-link fa fa-flask"> Producción Científica </a></li>
+<li class=" nav-item  "><a href="{% url 'iniciop:similar' %}" class="nav-link fa fa-pie-chart"> Similares</a></li>
+<!-- aqui link grafica-->
+<li class=" nav-item  active"><a href="{% url 'iniciop:grafic' %}" class="nav-link fa fa-bar-chart"> Graficas</a></li>
+<li class=" nav-item  "><a href="{% url 'login' %}" class="nav-link fa fa-sign-in"> Sign Up</a></li>
+<li class=" nav-item  "><a href="{% url 'login' %}" class="nav-link fa fa-sign-out"> Login</a></li>
+
+{% endblock %}
+
+
+
+
+
+
 
 {% block content %}
-
-<div class="row">
+<div class="row" >
     <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-x1-3" style=" align-content: center;"><!-- inicio columna master 1-->
-        <h3 style=" text-align: center">
-            Filtrar
+        <h3 style="text-align: center">
+Filtros
         </h3>
 
-        <div class="row"> <!-- inicio fila 1-->
-            <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-x1-1"></div>
-            <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-x1-5"> <!-- inicio columna 1-->
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Zona</label>
-                            <select class="form-control" id="pais" onchange="paises()">
-                                <option>--Seleccione--</option>
-                                {% for p in  Pais%}
-                                <option value="{{ p.pk }}">{{p.Nombre}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
+
+            <div class="row"> <!-- inicio fila 1-->
+                <div class="col-0 col-sm-0 col-md-1 col-lg-1 col-x1-1">
+
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Universidad</label>
-                            <select class="form-control" id="pais" onchange="paises()" >
-                                <option>--Seleccione--</option>
-                                {% for p in  Pais%}
-                                <option value="{{ p.pk }}">{{p.Nombre}}</option>
-                                {% endfor %}
-                            </select>
+
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-x1-12"> <!-- inicio columna 1-->
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Zona</label>
+                                <select class="form-control" id="zona" >
+                                    <option>--Seleccione--</option>
+                                    {% for z in  zona%}
+                                    <option value="{{ z.pk }}">{{z.Nombre}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div >
 
-            </div>  <!-- fin columna 1-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Universidad</label>
+                                <select class="form-control utc" id="universidad"  >
+                                    <option >--Seleccione--</option>
 
+                                </select>
+                            </div>
+                        </div>
+                    </div >
+                </div>  <!-- fin columna 1-->
 
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-x1-12" style="align-content: space-between"><!-- inicio coluna 2-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Campus</label>
+                                <select class="form-control campus" id="campus" >
+                                    <option>--Seleccione--</option>
 
-            <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-x1-5" style="align-content: space-between"><!-- inicio coluna 2-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Facultad</label>
-                            <select class="form-control" id="pais" onchange="paises()">
-                                <option>--Seleccione--</option>
-                                {% for p in  Pais%}
-                                <option value="{{ p.pk }}">{{p.Nombre}}</option>
-                                {% endfor %}
-                            </select>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Carrera</label>
-                            <select class="form-control" id="pais" onchange="paises()">
-                                <option>--Seleccione--</option>
-                                {% for p in  Pais%}
-                                <option value="{{ p.pk }}">{{p.Nombre}}</option>
-                                {% endfor %}
-                            </select>
+                    </div>
+
+
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-x1-12" style="align-content: space-between"><!-- inicio coluna 2-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Facultad</label>
+                                <select class="form-control facultad" id="facultad" >
+                                    <option>--Seleccione--</option>
+
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div><!-- fin columna 2-->
 
 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Carrera</label>
+                                <select class="form-control" id="carrera" >
+                                    <option>--Seleccione--</option>
+                                   
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- fin columna 2-->
 
+            </div><!-- fin fila 1-->
 
-
-
-        </div><!-- fin fila 1-->
     </div> <!-- fin columna master 1-->
+
+
+
+
 
 
     <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-x1-9" ><!-- inicio columna master 2-->
 
-
-        <table class="table" id="tblInvestigadores">
-
-
-                        <thead>
-                            <tr class="alert alert-warning">
-                                <th>No.</th>
-                                <th>nombre</th>
-                                <th>descripcion</th>
-                                <
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {% for z in zona %}
-                            <tr>
-                                <td>{{z.id}}</td>
-                                <td>{{z.Nombre}}</td>
-                                <td>{{z.Descripcion}}</td>
-
-                            </tr>
-                            {% endfor%}
-
-                        </tbody>
-
-                    </table>
-
-         <table class="table" id="tblInvestigadores">
-
-
-                        <thead>
-                            <tr class="alert alert-warning">
-                                <th>No.</th>
-                                <th>nombre</th>
-
-                                <
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {% for u in universidad %}
-                            <tr>
-                                <td>{{u.id}}</td>
-                                <td>{{u.Nombre}}</td>
-
-
-                            </tr>
-                            {% endfor%}
-
-                        </tbody>
-
-                    </table>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-x1-12">
+                <div class="row">
+                    <div class="col-10 col-sm-10 col-md-6 col-lg-6 col-x1-6">
+                          <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Eje X</label>
+                                    <select class="form-control" id="carrera" >
+                                        <option>--Seleccione--</option>
+                                        <option value="1">Libros</option>
+                                        <option value="2">Articulos Cientificos</option>
+                                        <option value="3">Ponencias</option>
+                                        <option value="4">Proyectos</option>
 
 
 
 
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10 col-sm-10 col-md-6 col-lg-6 col-x1-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Eje Y</label>
+                                    <select class="form-control" id="carrera" >
+                                        <option>--Seleccione--</option>
 
+                                        <option value="1">Universidad</option>
+                                        <option value="2">Facultad</option>
+                                        <option value="3">Carrera</option>
+                                        <option value="4">Universidad</option>
 
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
 
+            <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-x1-10">
+          <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+                <div id="chart"> </div>
+            </div>
 
-
-
-
-
-
-  </div>
-       
-        
-	                      
-        
-    </div><!-- fin columna master 2-->
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        </div>
+    </div>
+</div><!-- fin columna master 2-->
 {% endblock %}
+
+    {% block blockScripts %}
+        <!-- Load d3.js and c3.js -->
+
+                  <script type="text/javascript" src="{% static 'js/d3.min.js' %}"></script>
+                  <script type="text/javascript" src="{% static 'js/c3.min.js' %}"></script>
+                   <script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>
+                  <script type="text/javascript" src="{% static 'js/graficas.js' %}"></script>
+                  <script type="text/javascript" src="{% static 'js/consultaAjax.js' %}"></script>
+
+
+
+<script type="text/javascript">
+
+ $('#zona').on('change',inicio);
+ $('#universidad').on('change',inicio_campus);
+  $('#campus').on('change',inicio_facultad);
+    $('#facultad').on('change',inicio_carrera);
+
+   function inicio(){
+     var id =$(this).val();
+     console.log(id);
+     $.ajax({
+         data:{'id':id},
+         url:'/base/busqueda_ajax/',
+         type: 'get',
+         success: function(data){
+           console.log(data);
+           var html="";
+           for(var i=0;i<data.length;i++){
+          //   html+='<ul><li>'+data[i].fields.id+'</li><li>'+data.[i].fields.Nombre+'</li></ul>';
+         html+='<option value="'+data[i].pk+'">'+data[i].fields.Nombre+'</option>';
+            //console.log(data[0].fields.Nombre);
+          // console.log(data[0].pk);
+           }
+           $('#universidad').html(html);
+         }
+     });
+
+ }
+
+ function inicio_campus(){
+   var id =$(this).val();
+   console.log(id);
+   $.ajax({
+       data:{'id':id},
+       url:'/base/busqueda_campus/',
+       type: 'get',
+       success: function(data){
+         console.log(data);
+         var html="";
+         for(var i=0;i<data.length;i++){
+        //   html+='<ul><li>'+data[i].fields.id+'</li><li>'+data.[i].fields.Nombre+'</li></ul>';
+       html+='<option value="'+data[i].pk+'">'+data[i].fields.Nombre+'</option>';
+          //console.log(data[0].fields.Nombre);
+        // console.log(data[0].pk);
+         }
+         $('#campus').html(html);
+       }
+   });
+
+}
+
+function inicio_facultad(){
+  var id =$(this).val();
+  console.log(id);
+  $.ajax({
+      data:{'id':id},
+      url:'/base/busqueda_facultad/',
+      type: 'get',
+      success: function(data){
+        console.log(data);
+        var html="";
+        for(var i=0;i<data.length;i++){
+       //   html+='<ul><li>'+data[i].fields.id+'</li><li>'+data.[i].fields.Nombre+'</li></ul>';
+      html+='<option value="'+data[i].pk+'">'+data[i].fields.Nombre+'</option>';
+         //console.log(data[0].fields.Nombre);
+       // console.log(data[0].pk);
+        }
+        $('#facultad').html(html);
+      }
+  });
+
+}
+
+function inicio_carrera(){
+  var id =$(this).val();
+  console.log(id);
+  $.ajax({
+      data:{'id':id},
+      url:'/base/busqueda_carrera/',
+      type: 'get',
+      success: function(data){
+        console.log(data);
+        var html="";
+        for(var i=0;i<data.length;i++){
+       //   html+='<ul><li>'+data[i].fields.id+'</li><li>'+data.[i].fields.Nombre+'</li></ul>';
+      html+='<option value="'+data[i].pk+'">'+data[i].fields.Nombre+'</option>';
+         //console.log(data[0].fields.Nombre);
+       // console.log(data[0].pk);
+        }
+        $('#carrera').html(html);
+      }
+  });
+
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {% endblock %}

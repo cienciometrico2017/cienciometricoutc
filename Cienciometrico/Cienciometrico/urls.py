@@ -51,7 +51,7 @@ urlpatterns = [
     url(r'^ponencia/', include('apps.Ponencia.urls', namespace="Ponencia")),
     url(r'^capacitacion/', include('apps.capacitacion.urls', namespace="capacitacion")),
     url(r'^intereses/', include('apps.Intereses_Formativos.urls', namespace="interes")),
-
+    
     #///////////////////////PASSWORD RESET///////////////////////////////////////
     url(r'^password_reset/', password_reset,
        {'template_name': 'registration/password_reset_form.html',

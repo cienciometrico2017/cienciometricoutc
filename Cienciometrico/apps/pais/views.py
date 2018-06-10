@@ -58,6 +58,10 @@ class PaisCreate(CreateView):
                 privilegio.append(i)
         context['usuario'] = privilegio
         return context
+
+
+
+
 class PaisUpdate(UpdateView):
     model = pais
     form_class = PaisForm

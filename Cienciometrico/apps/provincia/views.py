@@ -37,6 +37,7 @@ class ProvinciaCreate(CreateView):
     form_class = ProvinciaForm
     template_name = 'provincia/provincia_crear.html'
     success_url = reverse_lazy('provincia:provincia_listar')
+
     def get_context_data(self, **kwargs):
         context = super(ProvinciaCreate, self).get_context_data(**kwargs)
         Pais = pais.objects.all()
@@ -62,6 +63,8 @@ class ProvinciaCreate(CreateView):
         context['Pais'] = Pais
         context['Zona'] = Zona
         return context
+
+        
 class ProvinciaUpdate(UpdateView):
     model = provincia
     form_class = ProvinciaForm

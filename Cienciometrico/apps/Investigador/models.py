@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 class investigador(models.Model):
-
+    Nombre=models.CharField(max_length=50, blank=True)
     Cedula=models.CharField(max_length=10, blank=True)
     Direccion=models.CharField(max_length=500, blank=True)
     Coordenadas= models.CharField(max_length=450, blank=True)
@@ -18,4 +18,3 @@ class investigador(models.Model):
 
     def __str__(self):
         return '{}  {}'.format(self.user.first_name,self.user.last_name)
-

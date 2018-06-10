@@ -9,7 +9,7 @@ from apps.roles.models import Rol
 class ZonaList(ListView):
     model = zona
     template_name='zona/zona_listar.html'
-    paginate_by = 6
+    #paginate_by = 6
     def get_context_data(self, **kwargs):
         context = super(ZonaList, self).get_context_data(**kwargs)
         usuario = self.request.user.id
@@ -36,6 +36,10 @@ class ZonaCreate(CreateView):
     form_class = ZonaForm
     template_name = 'zona/zona_crear.html'
     success_url = reverse_lazy('zona:zona_listar')
+
+
+
+
     def get_context_data(self, **kwargs):
         context = super(ZonaCreate, self).get_context_data(**kwargs)
         usuario = self.request.user.id
@@ -55,7 +59,11 @@ class ZonaCreate(CreateView):
             if i not in privilegio:
                 privilegio.append(i)
         context['usuario'] = privilegio
-        return context
+        return
+
+
+
+
 class ZonaUpdate(UpdateView):
     model = zona
     form_class = ZonaForm
